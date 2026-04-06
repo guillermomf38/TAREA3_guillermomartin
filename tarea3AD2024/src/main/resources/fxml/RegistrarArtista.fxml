@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.luisdbb.tarea3AD2024base.controller.RegistrarArtistaController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" style="-fx-background-color: #E57373;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnIrAtras" mnemonicParsing="false" onAction="#atras" style="-fx-background-color: white;" text="Atrás">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="200.0" />
+               </HBox.margin>
+            </Button>
+            <Label prefHeight="36.0" prefWidth="286.0" text="Registrar Artista">
+               <font>
+                  <Font name="Britannic Bold" size="36.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="300.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="523.0" style="-fx-background-color: lightskyblue;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="85.0">
+               <children>
+                  <Label text="Nombre:">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNombre" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="55.0">
+               <children>
+                  <Label text="Contraseña:">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="psPassword" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0" spacing="110.0">
+               <children>
+                  <Label text="Email:">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtemail" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+               <children>
+                  <Label text="Nacionalidad:">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="nacionalidad" prefWidth="150.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="478.0" spacing="50.0" style="-fx-background-color: lightskyblue;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" spacing="50.0">
+               <children>
+                  <Label text="Datos del Artista">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="txtApodo" promptText="Apodo">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="60.0" right="60.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <Label text="Especialidades">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="ckAcrobacia" mnemonicParsing="false" prefHeight="18.0" prefWidth="108.0" text="Acrobacia" />
+                  <CheckBox fx:id="ckHumor" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="107.0" text="Humor" />
+                  <CheckBox fx:id="ckMagia" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="104.0" text="Magia" />
+                  <CheckBox fx:id="ckEquilibrismo" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="101.0" text="Equilibrismo" />
+                  <CheckBox fx:id="ckMalabarismo" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="101.0" text="Malabarismo" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </right>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" style="-fx-background-color: lightskyblue;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarArtista" style="-fx-background-color: white;" text="Guardar">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnReiniciar" mnemonicParsing="false" onAction="#reiniciar" style="-fx-background-color: #E57373; -fx-text-fill: white;" text="Reiniciar">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
