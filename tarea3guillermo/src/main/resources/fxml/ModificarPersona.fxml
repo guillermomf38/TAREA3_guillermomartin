@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0"
+    xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/21"
+    fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarPersonaController">
+
+  
+    <top>
+        <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #E57373;">
+            <Button text="Atrás" onAction="#atras" style="-fx-background-color: white;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Modificar Persona">
+                <font><Font name="Britannic Bold" size="36.0"/></font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox alignment="TOP_CENTER"
+              prefWidth="350.0"
+              minWidth="350.0"
+              spacing="15.0"
+              fillWidth="true"
+              style="-fx-background-color: lightskyblue;">
+
+            <padding>
+                <Insets top="20.0" left="15.0" right="15.0"/>
+            </padding>
+
+            <Label text="Selecciona persona:">
+                <font><Font name="Arial" size="14.0"/></font>
+            </Label>
+
+            <!-- LISTVIEW ARREGLADO -->
+            <ListView fx:id="lvPersonas"
+                      VBox.vgrow="ALWAYS"
+                      maxWidth="Infinity"/>
+
+            <Button text="Cargar datos"
+                    onAction="#cargarPersona"
+                    prefWidth="150.0"
+                    style="-fx-background-color: white;">
+                <font><Font name="Arial" size="13.0"/></font>
+            </Button>
+
+            <Label text="Datos Personales" style="-fx-font-weight: bold;">
+                <font><Font name="Arial" size="15.0"/></font>
+                <VBox.margin>
+                    <Insets top="10.0"/>
+                </VBox.margin>
+            </Label>
+
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label text="Nombre:" prefWidth="90">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+                <TextField fx:id="txtNombre" prefWidth="190.0"/>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label text="Email:" prefWidth="90">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+                <TextField fx:id="txtEmail" prefWidth="190.0"/>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label text="Nacionalidad:" prefWidth="90">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+                <ChoiceBox fx:id="cbNacionalidad" prefWidth="190.0"/>
+            </HBox>
+
+        </VBox>
+    </left>
+
+
+    <center>
+        <VBox alignment="TOP_CENTER" prefWidth="620.0" spacing="15.0"
+              style="-fx-background-color: lightskyblue;">
+
+            <padding>
+                <Insets top="20.0" left="20.0" right="20.0"/>
+            </padding>
+
+            <Label fx:id="lblTipoPerfil" text="Selecciona una persona"
+                   style="-fx-font-weight: bold;">
+                <font><Font name="Arial" size="16.0"/></font>
+            </Label>
+
+           
+            <VBox fx:id="panelArtista" spacing="12.0"
+                  visible="false" managed="false">
+
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <Label text="Apodo:" prefWidth="100">
+                        <font><Font name="Arial" size="13.0"/></font>
+                    </Label>
+                    <TextField fx:id="txtApodo" prefWidth="250.0"
+                               promptText="Opcional"/>
+                </HBox>
+
+                <Label text="Especialidades:">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+
+                <HBox spacing="15.0">
+                    <CheckBox fx:id="ckAcrobacia" text="Acrobacia"/>
+                    <CheckBox fx:id="ckHumor" text="Humor"/>
+                    <CheckBox fx:id="ckMagia" text="Magia"/>
+                </HBox>
+
+                <HBox spacing="15.0">
+                    <CheckBox fx:id="ckEquilibrismo" text="Equilibrismo"/>
+                    <CheckBox fx:id="ckMalabarismo" text="Malabarismo"/>
+                </HBox>
+            </VBox>
+
+            
+            <VBox fx:id="panelCoord" spacing="15.0"
+                  visible="false" managed="false">
+
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <Label text="¿Senior?" prefWidth="100">
+                        <font><Font name="Arial" size="13.0"/></font>
+                    </Label>
+                    <CheckBox fx:id="ckSenior" onAction="#toggleFecha"/>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <Label text="Fecha Senior:" prefWidth="100">
+                        <font><Font name="Arial" size="13.0"/></font>
+                    </Label>
+                    <DatePicker fx:id="dpFechaSenior"
+                                prefWidth="200.0"
+                                disable="true"/>
+                </HBox>
+            </VBox>
+
+        </VBox>
+    </center>
+
+   
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="80.0" spacing="80.0"
+              style="-fx-background-color: lightskyblue;">
+
+            <Button text="Guardar"
+                    onAction="#guardar"
+                    prefWidth="130.0"
+                    style="-fx-background-color: white;">
+                <font><Font name="Arial" size="14.0"/></font>
+            </Button>
+
+            <Button text="Reiniciar"
+                    onAction="#reiniciar"
+                    prefWidth="130.0"
+                    style="-fx-background-color: #E57373; -fx-text-fill: white;">
+                <font><Font name="Arial" size="14.0"/></font>
+            </Button>
+
+        </HBox>
+    </bottom>
+
+</BorderPane>

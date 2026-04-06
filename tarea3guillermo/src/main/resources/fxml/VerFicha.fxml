@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0"
+    xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/21"
+    fx:controller="com.luisdbb.tarea3AD2024base.controller.VerFichaController">
+
+    <top>
+        <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #E57373;">
+            <Button text="Atrás" onAction="#atras"
+                    style="-fx-background-color: white;">
+                <HBox.margin><Insets right="150.0"/></HBox.margin>
+            </Button>
+            <Label text="Mi Ficha">
+                <font><Font name="Britannic Bold" size="36.0"/></font>
+                <HBox.margin><Insets right="300.0"/></HBox.margin>
+            </Label>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox alignment="TOP_CENTER" prefWidth="380.0" spacing="15.0"
+              style="-fx-background-color: lightskyblue;">
+            <padding><Insets top="30.0" left="20.0" right="20.0"/></padding>
+
+            <Label text="Datos Personales" style="-fx-font-weight: bold;">
+                <font><Font name="Arial" size="16.0"/></font>
+            </Label>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Nombre:" prefWidth="110" style="-fx-font-weight: bold;">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+                <Label fx:id="lblNombre">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+            </HBox>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Email:" prefWidth="110" style="-fx-font-weight: bold;">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+                <Label fx:id="lblEmail">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+            </HBox>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Nacionalidad:" prefWidth="110" style="-fx-font-weight: bold;">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+                <Label fx:id="lblNacionalidad">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+            </HBox>
+
+            <Label text="Datos Profesionales" style="-fx-font-weight: bold;">
+                <font><Font name="Arial" size="16.0"/></font>
+                <VBox.margin><Insets top="20.0"/></VBox.margin>
+            </Label>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Apodo:" prefWidth="110" style="-fx-font-weight: bold;">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+                <Label fx:id="lblApodo">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+            </HBox>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Especialidades:" prefWidth="110" style="-fx-font-weight: bold;">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+                <Label fx:id="lblEspecialidades">
+                    <font><Font name="Arial" size="13.0"/></font>
+                </Label>
+            </HBox>
+
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="TOP_LEFT" prefWidth="600.0" spacing="15.0"
+              style="-fx-background-color: lightskyblue;">
+            <padding><Insets top="30.0" left="20.0" right="20.0"/></padding>
+
+            <Label text="Participaciones en Espectáculos"
+                   style="-fx-font-weight: bold;">
+                <font><Font name="Arial" size="16.0"/></font>
+            </Label>
+
+            <TextArea fx:id="taParticipaciones" prefHeight="500.0"
+                      editable="false" wrapText="true"
+                      style="-fx-font-family: monospace; -fx-font-size: 13px;"/>
+        </VBox>
+    </center>
+
+</BorderPane>

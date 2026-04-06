@@ -1,0 +1,67 @@
+/**
+ *Clase MenuRegistrarPersona.java
+ * 
+ *@author Guillermo Martin Fueyo
+ *@version 1.0
+ */
+
+package com.luisdbb.tarea3AD2024base.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Controller;
+
+import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.services.CredencialesService;
+
+import com.luisdbb.tarea3AD2024base.view.FxmlView;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+
+@Lazy
+@Controller
+public class MenuRegistrarPersonaController implements Initializable {
+
+    @FXML
+    private Button btnIrRegistrarArtista;
+
+    @FXML
+    private Button btnIrRegistrarCoordinador;
+
+    @FXML
+    private Button btnCerrarSesion;
+
+    @Lazy
+    @Autowired
+    private StageManager stageManager;
+
+    @Autowired
+    private CredencialesService credencialesService;
+
+
+
+    @FXML
+    private void irRegistrarArtista() {
+        stageManager.switchScene(FxmlView.REGISTRAR_ARTISTA);
+    }
+
+    @FXML
+    private void irRegistrarCoordinador() {
+        stageManager.switchScene(FxmlView.REGISTRAR_COORDINADOR);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+    }
+
+    @FXML
+    private void cerrarSesion() {
+        credencialesService.logout();
+        stageManager.switchScene(FxmlView.LOGIN);
+    }
+}
