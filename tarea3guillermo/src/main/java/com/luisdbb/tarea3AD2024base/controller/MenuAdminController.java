@@ -22,7 +22,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-@Lazy
 @Controller
 public class MenuAdminController implements Initializable {
 
@@ -34,8 +33,7 @@ public class MenuAdminController implements Initializable {
 	private Button btnIrGestionar;
 	@FXML
 	private Button btnIrBuscar;
-	@FXML
-	private Button btnIrExportar;
+	
 	@FXML
 	private Button btnCerrarSesion;
 	@Lazy
@@ -56,7 +54,7 @@ public class MenuAdminController implements Initializable {
 	}
 	@FXML
 	private void irGestionar() {
-		stageManager.switchScene(FxmlView.GESTIONAR_ESPECTACULOS);
+		stageManager.switchScene(FxmlView.GESTIONAR_ESPECTACULO);
 	}
 	@FXML
 	private void irBuscar() {
@@ -72,7 +70,7 @@ public class MenuAdminController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		
 
 	}
 }

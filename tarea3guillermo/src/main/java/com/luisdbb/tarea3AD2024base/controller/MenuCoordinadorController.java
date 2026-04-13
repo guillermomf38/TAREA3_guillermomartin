@@ -23,7 +23,7 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-@Lazy
+
 @Controller
 public class MenuCoordinadorController implements Initializable {
 
@@ -41,7 +41,7 @@ public class MenuCoordinadorController implements Initializable {
 	
 	@FXML
 	private void irGestionar() {
-		stageManager.switchScene(FxmlView.GESTIONAR_ESPECTACULOS);
+		stageManager.switchScene(FxmlView.GESTIONAR_ESPECTACULO);
 	}
 
 	@FXML

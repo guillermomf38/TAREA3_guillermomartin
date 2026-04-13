@@ -27,13 +27,14 @@ import com.luisdbb.tarea3AD2024base.services.SesionService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 
-@Lazy
+
 @Controller
 public class BuscarEspectaculoController implements Initializable {
 
@@ -71,12 +72,13 @@ public class BuscarEspectaculoController implements Initializable {
 
     private void cargarEspectaculos() {
         espectaculos = espectaculoService.listarEspectaculos();
-        lvEspectaculos.setItems(FXCollections.observableArrayList(
-                espectaculos.stream()
-                        .map(e -> e.getId() + " | " + e.getNombre()
-                                + " | " + e.getFechaini()
-                                + " → " + e.getFechafin())
-                        .toList()));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (Espectaculo e : espectaculos) {
+            items.add(e.getId() + " | " + e.getNombre()
+                    + " | " + e.getFechaini()
+                    + " → " + e.getFechafin());
+        }
+        lvEspectaculos.setItems(items);
     }
 
     private void mostrarDetalle(Espectaculo e) {

@@ -35,7 +35,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-@Lazy
+
 @Controller
 public class LoginController implements Initializable {
 

@@ -16,7 +16,7 @@
 <BorderPane prefHeight="700.0" prefWidth="1000.0"
 	xmlns="http://javafx.com/javafx/23.0.1"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.luisdbb.tarea3AD2024base.controller.RegistrarCoodinadorController">
+	fx:controller="com.luisdbb.tarea3AD2024base.controller.RegistrarCoordinadorController">
 	<top>
 		<HBox alignment="CENTER" prefHeight="110.0" prefWidth="1000.0"
 			spacing="100.0" style="-fx-background-color: #E57373;"

@@ -34,7 +34,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -61,8 +60,7 @@ public class ModificarPersonaController implements Initializable {
 	@FXML
 	private ChoiceBox<String> cbNacionalidad;
 
-	@FXML
-	private Label lblTipoPerfil;
+
 	@FXML
 	private VBox panelArtista;
 	@FXML
@@ -118,7 +116,7 @@ public class ModificarPersonaController implements Initializable {
 		cbNacionalidad.setValue(personaSeleccionada.getNacionalidad());
 
 		if (personaSeleccionada instanceof Artista artista) {
-			lblTipoPerfil.setText("Datos del Artista");
+			
 			panelArtista.setVisible(true);
 			panelArtista.setManaged(true);
 			panelCoord.setVisible(false);
@@ -137,7 +135,7 @@ public class ModificarPersonaController implements Initializable {
 					.contains(Especialidad.MALABARISMO));
 
 		} else if (personaSeleccionada instanceof Coordinacion coord) {
-			lblTipoPerfil.setText("Datos del Coordinador");
+			
 			panelCoord.setVisible(true);
 			panelCoord.setManaged(true);
 			panelArtista.setVisible(false);
@@ -222,7 +220,7 @@ public class ModificarPersonaController implements Initializable {
 		panelArtista.setManaged(false);
 		panelCoord.setVisible(false);
 		panelCoord.setManaged(false);
-		lblTipoPerfil.setText("Selecciona una persona");
+		
 		cargarPersonas();
 	}
 

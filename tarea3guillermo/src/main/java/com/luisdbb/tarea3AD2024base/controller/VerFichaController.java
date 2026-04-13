@@ -28,7 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-@Lazy
+
 @Controller
 public class VerFichaController implements Initializable {
 
@@ -68,10 +68,10 @@ public class VerFichaController implements Initializable {
 
         StringBuilder sb = new StringBuilder();
         for (Numero n : artista.getNumeros()) {
-            sb.append("Espectáculo: ")
+            sb.append("Espectaculo: ")
                     .append(n.getEspectaculo().getNombre())
                     .append("\n")
-                    .append("  Número: ").append(n.getNombre())
+                    .append("  Numero: ").append(n.getNombre())
                     .append(" - Orden: ").append(n.getOrden())
                     .append("\n\n");
         }

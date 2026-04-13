@@ -8,6 +8,7 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -26,6 +27,7 @@ import com.luisdbb.tarea3AD2024base.services.SesionService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -36,7 +38,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-@Lazy
+
 @Controller
 public class GestionarEspectaculoController implements Initializable {
 
@@ -112,41 +114,52 @@ public class GestionarEspectaculoController implements Initializable {
 	}
 
 	private void cargarEspectaculos() {
+
 		espectaculos = espectaculoService.listarEspectaculos();
-		lvEspectaculos.setItems(
-				FXCollections.observableArrayList(espectaculos.stream()
-						.map(e -> e.getId() + " | " + e.getNombre()).toList()));
+
+		ObservableList<String> items = FXCollections.observableArrayList();
+
+		for (Espectaculo e : espectaculos) {
+			items.add(e.getId() + " | " + e.getNombre());
+		}
+
+		lvEspectaculos.setItems(items);
 	}
 
 	private void cargarCoordinadores() {
 		coordinadores = espectaculoService.listarCoordinadores();
-		cbCoordinador.setItems(
-				FXCollections.observableArrayList(coordinadores.stream()
-						.map(c -> c.getId() + " - " + c.getNombre()).toList()));
+		ObservableList<String> items = FXCollections.observableArrayList();
+		for (Coordinacion c : coordinadores) {
+			items.add(c.getId() + " - " + c.getNombre());
+		}
+		cbCoordinador.setItems(items);
 	}
 
 	private void cargarArtistas() {
 		artistas = espectaculoService.listarArtistas();
-		lvArtistas.setItems(FXCollections.observableArrayList(artistas.stream()
-				.map(a -> a.getId() + " - " + a.getNombre()).toList()));
+		ObservableList<String> items = FXCollections.observableArrayList();
+		for (Artista a : artistas) {
+			items.add(a.getId() + " - " + a.getNombre());
+		}
+		lvArtistas.setItems(items);
 	}
-
 	private void seleccionarEspectaculo(Espectaculo e) {
 		espectaculoSeleccionado = e;
-		txtNombreEsp.setText(e.getNombre());
-		dpFechaini.setValue(e.getFechaini());
-		dpFechafin.setValue(e.getFechafin());
-		numerosActuales = espectaculoService
-				.listarNumerosDeEspectaculo(e.getId());
-		lvNumeros
-				.setItems(FXCollections
-						.observableArrayList(numerosActuales.stream()
-								.map(n -> n.getOrden() + ". " + n.getNombre()
-										+ " (" + n.getDuracion() + " min)")
-								.toList()));
-		txtNombreNum.clear();
-		txtDuracion.clear();
-		numeroSeleccionado = null;
+	    txtNombreEsp.setText(e.getNombre());
+	    dpFechaini.setValue(e.getFechaini());
+	    dpFechafin.setValue(e.getFechafin());
+
+	    numerosActuales = espectaculoService.listarNumerosDeEspectaculo(e.getId());
+	    ObservableList<String> items = FXCollections.observableArrayList();
+	    for (Numero n : numerosActuales) {
+	        items.add(n.getOrden() + ". " + n.getNombre()
+	                + " (" + n.getDuracion() + " min)");
+	    }
+	    lvNumeros.setItems(items);
+
+	    txtNombreNum.clear();
+	    txtDuracion.clear();
+	    numeroSeleccionado = null;
 	}
 
 	private void seleccionarNumero(Numero n) {
@@ -173,7 +186,7 @@ public class GestionarEspectaculoController implements Initializable {
 				espectaculoSeleccionado = espectaculoService.crearEspectaculo(
 						txtNombreEsp.getText(), dpFechaini.getValue(),
 						dpFechafin.getValue(), coord);
-				mostrarInfo("Espectaculo creado. Crea al menos 3 numeros.");
+				mostrarInfo("Espectaculo creado.");
 			} else {
 				espectaculoService.modificarEspectaculo(
 						espectaculoSeleccionado.getId(), txtNombreEsp.getText(),
@@ -244,38 +257,41 @@ public class GestionarEspectaculoController implements Initializable {
 
 	@FXML
 	private void asignarArtistas() {
-		if (numeroSeleccionado == null) {
-			mostrarError("Selecciona un numero primero");
-			return;
-		}
-		List<Integer> indices = lvArtistas.getSelectionModel()
-				.getSelectedIndices();
-		if (indices.isEmpty()) {
-			mostrarError("Selecciona al menos un artista");
-			return;
-		}
-		try {
-			List<Artista> seleccionados = indices.stream().map(artistas::get)
-					.toList();
-			espectaculoService.asignarArtistas(numeroSeleccionado.getId(),
-					seleccionados);
-			mostrarInfo("Artistas asignados correctamente");
-		} catch (ValidacionExcepcion e) {
-			mostrarError(e.getMessage());
-		}
+	    if (numeroSeleccionado == null) {
+	        mostrarError("Selecciona un numero primero");
+	        return;
+	    }
+	    List<Integer> indices = lvArtistas.getSelectionModel().getSelectedIndices();
+	    if (indices.isEmpty()) {
+	        mostrarError("Selecciona al menos un artista");
+	        return;
+	    }
+	    try {
+	        List<Artista> seleccionados = new ArrayList<>();
+	        for (Integer idx : indices) {
+	            seleccionados.add(artistas.get(idx));
+	        }
+	        espectaculoService.asignarArtistas(
+	                numeroSeleccionado.getId(), seleccionados);
+	        mostrarInfo("Artistas asignados correctamente");
+	    } catch (ValidacionExcepcion e) {
+	        mostrarError(e.getMessage());
+	    }
 	}
 
 	private Coordinacion getCoordinador() {
 		if (sesionService.isCoordinacion()) {
-			String usuario = sesionService.getUsuarioActual().getNombre();
-			return espectaculoService.listarCoordinadores().stream().filter(
-					c -> c.getCredenciales().getNombre().equals(usuario))
-					.findFirst().orElse(null);
-		}
-		int idx = cbCoordinador.getSelectionModel().getSelectedIndex();
-		if (idx < 0 || coordinadores == null)
-			return null;
-		return coordinadores.get(idx);
+	        String usuario = sesionService.getUsuarioActual().getNombre();
+	        for (Coordinacion c : espectaculoService.listarCoordinadores()) {
+	            if (c.getCredenciales().getNombre().equals(usuario)) {
+	                return c;
+	            }
+	        }
+	        return null;
+	    }
+	    int idx = cbCoordinador.getSelectionModel().getSelectedIndex();
+	    if (idx < 0 || coordinadores == null) return null;
+	    return coordinadores.get(idx);
 	}
 
 	@FXML

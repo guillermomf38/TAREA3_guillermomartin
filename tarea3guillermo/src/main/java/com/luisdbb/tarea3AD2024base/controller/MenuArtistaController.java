@@ -24,7 +24,7 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-@Lazy
+
 @Controller
 public class MenuArtistaController implements Initializable {
 	@FXML

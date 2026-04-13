@@ -92,15 +92,15 @@ public enum FxmlView {
 			return "/fxml/ModificarPersona.fxml";
 		}
 	},
-	GESTIONAR_ESPECTACULOS {
+	GESTIONAR_ESPECTACULO {
 		@Override
 		public String getTitle() {
-			return getStringFromResourceBundle("gestionarEspectaculos.title");
+			return getStringFromResourceBundle("gestionarEspectaculo.title");
 		}
 
 		@Override
 		public String getFxmlFile() {
-			return "/fxml/GestionarEspectaculos.fxml";
+			return "/fxml/GestionarEspectaculo.fxml";
 		}
 	},
 	BUSCAR_ESPECTACULO {
