@@ -9,7 +9,7 @@
 		<version>3.4.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.guillermo</groupId>
+	<groupId>com.luisdbb</groupId>
 	<artifactId>tarea3AD2024base</artifactId>
 	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>21</version>
+			<version>23</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -57,10 +57,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>
-						com.luisdbb.tarea3AD2024base.Tarea3Ad2024baseApplication</mainClass>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.openjfx</groupId>

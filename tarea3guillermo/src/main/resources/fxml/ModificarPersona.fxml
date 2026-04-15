@@ -18,7 +18,7 @@
   
     <top>
         <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #E57373;">
-            <Button onAction="#atras" style="-fx-background-color: white;" text="Atrás">
+            <Button fx:id="btnAtras" onAction="#atras" style="-fx-background-color: white;" text="Atrás">
             <HBox.margin>
                <Insets right="200.0" />
             </HBox.margin></Button>
@@ -143,11 +143,11 @@
     <bottom>
         <HBox alignment="CENTER" prefHeight="80.0" spacing="80.0" style="-fx-background-color: lightskyblue;">
 
-            <Button onAction="#guardar" prefWidth="130.0" style="-fx-background-color: white;" text="Guardar">
+            <Button fx:id="btnGuardar" onAction="#guardar" prefWidth="130.0" style="-fx-background-color: white;" text="Guardar">
                 <font><Font name="Arial" size="14.0" /></font>
             </Button>
 
-            <Button onAction="#reiniciar" prefWidth="130.0" style="-fx-background-color: #E57373; -fx-text-fill: white;" text="Reiniciar">
+            <Button fx:id="btnReiniciar" onAction="#reiniciar" prefWidth="130.0" style="-fx-background-color: #E57373; -fx-text-fill: white;" text="Reiniciar">
                 <font><Font name="Arial" size="14.0" /></font>
             </Button>
 

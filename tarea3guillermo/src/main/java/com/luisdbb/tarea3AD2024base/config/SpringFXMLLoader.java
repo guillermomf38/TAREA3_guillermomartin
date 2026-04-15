@@ -1,6 +1,7 @@
 package com.luisdbb.tarea3AD2024base.config;
 
 import java.io.IOException;
+
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,6 +32,4 @@ public class SpringFXMLLoader {
         loader.setLocation(getClass().getResource(fxmlPath));
         return loader.load();
     }
-    
-
 }

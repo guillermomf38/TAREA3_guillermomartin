@@ -7,6 +7,7 @@
 
 package com.luisdbb.tarea3AD2024base.controller;
 
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,11 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -73,7 +76,27 @@ public class GestionarEspectaculoController implements Initializable {
 	private TextField txtDuracion;
 	@FXML
 	private ListView<String> lvArtistas;
-
+	@FXML
+	private Button btnAtras;
+	@FXML
+	private Button btnNuevoEspectaculo;
+	@FXML
+	private Button BtnGuardarEspectaculo;
+	@FXML
+	private Button btnLimpiarEspectaculo;
+	
+	@FXML
+	private Button btnNuevoNumero;
+	@FXML
+	private Button btnEditarNumero;
+	@FXML
+	private Button btnGuardarNumero;
+	@FXML
+	private Button btnAsignarArtistas;
+	
+	
+	
+	
 	private List<Espectaculo> espectaculos;
 	private List<Coordinacion> coordinadores;
 	private List<Artista> artistas;
@@ -169,13 +192,13 @@ public class GestionarEspectaculoController implements Initializable {
 	}
 
 	@FXML
-	private void nuevoEspectaculo() {
+	private void nuevoEspectaculo(ActionEvent event)  {
 		espectaculoSeleccionado = null;
-		limpiarEspectaculo();
+		limpiarEspectaculo(event);
 	}
 
 	@FXML
-	private void guardarEspectaculo() {
+	private void guardarEspectaculo(ActionEvent event)  {
 		try {
 			Coordinacion coord = getCoordinador();
 			if (coord == null) {
@@ -200,7 +223,7 @@ public class GestionarEspectaculoController implements Initializable {
 	}
 
 	@FXML
-	private void limpiarEspectaculo() {
+	private void limpiarEspectaculo(ActionEvent event)  {
 		txtNombreEsp.clear();
 		dpFechaini.setValue(null);
 		dpFechafin.setValue(null);
@@ -212,7 +235,7 @@ public class GestionarEspectaculoController implements Initializable {
 	}
 
 	@FXML
-	private void nuevoNumero() {
+	private void nuevoNumero(ActionEvent event)  {
 		if (espectaculoSeleccionado == null) {
 			mostrarError("Primero selecciona o guarda un espectaculo");
 			return;
@@ -223,14 +246,14 @@ public class GestionarEspectaculoController implements Initializable {
 	}
 
 	@FXML
-	private void editarNumero() {
+	private void editarNumero(ActionEvent event) {
 		if (numeroSeleccionado == null) {
 			mostrarError("Selecciona un numero de la lista");
 		}
 	}
 
 	@FXML
-	private void guardarNumero() {
+	private void guardarNumero(ActionEvent event) {
 		if (espectaculoSeleccionado == null) {
 			mostrarError("Primero selecciona o guarda un espectaculo");
 			return;
@@ -256,7 +279,7 @@ public class GestionarEspectaculoController implements Initializable {
 	}
 
 	@FXML
-	private void asignarArtistas() {
+	private void asignarArtistas(ActionEvent event) {
 	    if (numeroSeleccionado == null) {
 	        mostrarError("Selecciona un numero primero");
 	        return;
@@ -295,7 +318,7 @@ public class GestionarEspectaculoController implements Initializable {
 	}
 
 	@FXML
-	private void atras() {
+	private void atras(ActionEvent event) {
 		if (sesionService.isAdmin()) {
 			stageManager.switchScene(FxmlView.MENU_ADMIN);
 		} else {

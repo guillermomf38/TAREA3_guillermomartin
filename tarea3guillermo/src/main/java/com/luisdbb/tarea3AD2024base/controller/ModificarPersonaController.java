@@ -7,6 +7,7 @@
 
 package com.luisdbb.tarea3AD2024base.controller;
 
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,11 @@ import com.luisdbb.tarea3AD2024base.services.PersonaService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -83,6 +85,15 @@ public class ModificarPersonaController implements Initializable {
 	private CheckBox ckSenior;
 	@FXML
 	private DatePicker dpFechaSenior;
+	
+	@FXML
+	private Button btnGuardar;
+	
+	@FXML
+	private Button btnReiniciar;
+	
+	@FXML
+	private Button btnAtras;
 
 	private List<Persona> personas;
 	private Persona personaSeleccionada;
@@ -104,7 +115,7 @@ public class ModificarPersonaController implements Initializable {
 	}
 
 	@FXML
-	private void cargarPersona() {
+	private void cargarPersona(ActionEvent event) {
 		int idx = lvPersonas.getSelectionModel().getSelectedIndex();
 		if (idx < 0) {
 			mostrarError("Selecciona una persona de la lista");
@@ -147,14 +158,14 @@ public class ModificarPersonaController implements Initializable {
 	}
 
 	@FXML
-	private void toggleFecha() {
+	private void toggleFecha(ActionEvent event)  {
 		dpFechaSenior.setDisable(!ckSenior.isSelected());
 		if (!ckSenior.isSelected())
 			dpFechaSenior.setValue(null);
 	}
 
 	@FXML
-	private void guardar() {
+	private void guardar(ActionEvent event)  {
 		if (personaSeleccionada == null) {
 			mostrarError("Primero carga una persona");
 			return;
@@ -193,7 +204,7 @@ public class ModificarPersonaController implements Initializable {
 			}
 
 			mostrarInfo("Persona modificada correctamente");
-			reiniciar();
+			reiniciar(event);
 
 		} catch (ValidacionExcepcion e) {
 			mostrarError(e.getMessage());
@@ -201,7 +212,7 @@ public class ModificarPersonaController implements Initializable {
 	}
 
 	@FXML
-	private void reiniciar() {
+	private void reiniciar(ActionEvent event) {
 		personaSeleccionada = null;
 		lvPersonas.getSelectionModel().clearSelection();
 		txtNombre.clear();
@@ -225,7 +236,7 @@ public class ModificarPersonaController implements Initializable {
 	}
 
 	@FXML
-	private void atras() {
+	private void atras(ActionEvent event) {
 		stageManager.switchScene(FxmlView.MENU_ADMIN);
 	}
 

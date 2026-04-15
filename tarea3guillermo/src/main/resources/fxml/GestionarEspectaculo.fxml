@@ -16,7 +16,7 @@
 
     <top>
         <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #E57373;">
-            <Button onAction="#atras" style="-fx-background-color: white;" text="Atrás">
+            <Button fx:id="btnAtras" onAction="#atras" style="-fx-background-color: white;" text="Atrás">
                 <HBox.margin><Insets right="150.0" /></HBox.margin>
             </Button>
             <Label text="Gestionar Espectáculos">
@@ -34,7 +34,7 @@
                 <font><Font name="Arial" size="14.0" /></font>
             </Label>
             <ListView fx:id="lvEspectaculos" prefHeight="380.0" prefWidth="250.0" />
-            <Button onAction="#nuevoEspectaculo" prefWidth="200.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Nuevo Espectáculo">
+            <Button fx:id="btnNuevoEspectaculo" onAction="#nuevoEspectaculo" prefWidth="200.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Nuevo Espectáculo">
                 <font><Font name="Arial" size="13.0" /></font>
             </Button>
         </VBox>
@@ -77,10 +77,10 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10.0">
-                <Button onAction="#guardarEspectaculo" prefWidth="160.0" style="-fx-background-color: white;" text="Guardar Espectáculo">
+                <Button fx:id="BtnGuardarEspectaculo" onAction="#guardarEspectaculo" prefWidth="160.0" style="-fx-background-color: white;" text="Guardar Espectáculo">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Button>
-                <Button onAction="#limpiarEspectaculo" prefWidth="80.0" style="-fx-background-color: #E57373; -fx-text-fill: white;" text="Limpiar">
+                <Button fx:id="btnLimpiarEspectaculo" onAction="#limpiarEspectaculo" prefWidth="80.0" style="-fx-background-color: #E57373; -fx-text-fill: white;" text="Limpiar">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Button>
             </HBox>
@@ -93,10 +93,10 @@
             <ListView fx:id="lvNumeros" prefHeight="150.0" prefWidth="340.0" />
 
             <HBox alignment="CENTER" spacing="10.0">
-                <Button onAction="#nuevoNumero" prefWidth="130.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Nuevo Número">
+                <Button fx:id="btnNuevoNumero" onAction="#nuevoNumero" prefWidth="130.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Nuevo Número">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Button>
-                <Button onAction="#editarNumero" prefWidth="130.0" style="-fx-background-color: white;" text="Editar Número">
+                <Button fx:id="btnEditarNumero" onAction="#editarNumero" prefWidth="130.0" style="-fx-background-color: white;" text="Editar Número">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Button>
             </HBox>
@@ -125,7 +125,7 @@
                 <TextField fx:id="txtDuracion" prefWidth="180.0" />
             </HBox>
 
-            <Button onAction="#guardarNumero" prefWidth="200.0" style="-fx-background-color: white;" text="Guardar Número">
+            <Button fx:id="btnGuardarNumero" onAction="#guardarNumero" prefWidth="200.0" style="-fx-background-color: white;" text="Guardar Número">
                 <font><Font name="Arial" size="13.0" /></font>
             </Button>
 
@@ -136,7 +136,7 @@
 
             <ListView fx:id="lvArtistas" prefHeight="200.0" prefWidth="270.0" />
 
-            <Button onAction="#asignarArtistas" prefWidth="200.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Asignar Artistas">
+            <Button fx:id="btnAsignarArtistas" onAction="#asignarArtistas" prefWidth="200.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Asignar Artistas">
                 <font><Font name="Arial" size="13.0" /></font>
             </Button>
         </VBox>

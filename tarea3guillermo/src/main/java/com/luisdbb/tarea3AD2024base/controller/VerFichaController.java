@@ -23,8 +23,10 @@ import com.luisdbb.tarea3AD2024base.services.PersonaService;
 import com.luisdbb.tarea3AD2024base.services.SesionService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
@@ -48,6 +50,7 @@ public class VerFichaController implements Initializable {
     @FXML private Label lblApodo;
     @FXML private Label lblEspecialidades;
     @FXML private TextArea taParticipaciones;
+    @FXML private Button btnAtras;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,7 +83,7 @@ public class VerFichaController implements Initializable {
     }
 
     @FXML
-    private void atras() {
+    private void atras(ActionEvent event)  {
         stageManager.switchScene(FxmlView.MENU_ARTISTA);
     }
 }

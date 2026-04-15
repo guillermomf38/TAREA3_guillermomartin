@@ -55,7 +55,7 @@
 					</Label>
 					<PasswordField fx:id="psPassword" />
 				</HBox>
-				<HBox fx:id="txtUsuario" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="65.0">
+				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="65.0">
 					<Label text="Usuario:">
 						<font>
 							<Font name="Arial" size="20.0" />

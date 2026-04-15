@@ -17,14 +17,14 @@ public enum FxmlView {
 	MENU_ADMIN {
 		@Override
 		public String getTitle() {
-			return getStringFromResourceBundle("menuAdmin.title");
+			return getStringFromResourceBundle("menuadmin.title");
 		}
 
 		@Override
 		public String getFxmlFile() {
-			return "/fxml/MenuAdmin.fxml";
+			return "/fxml/menuadmin.fxml";
 		}
-	},
+	}, 
 	MENU_ARTISTA {
 		@Override
 		public String getTitle() {

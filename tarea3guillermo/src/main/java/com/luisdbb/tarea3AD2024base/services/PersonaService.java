@@ -140,7 +140,7 @@ public class PersonaService {
 	}
 
 	public List<Persona> listarPersonas() {
-		return personaRepository.findAll();
+	    return personaRepository.findByCredenciales_PerfilNot(Perfiles.ADMIN);
 	}
 
 	public List<Artista> listarArtistas() {

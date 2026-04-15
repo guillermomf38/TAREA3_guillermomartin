@@ -9,6 +9,7 @@
 
 package com.luisdbb.tarea3AD2024base.controller;
 
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import com.luisdbb.tarea3AD2024base.services.NacionalidadService;
 import com.luisdbb.tarea3AD2024base.services.PersonaService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -85,7 +87,7 @@ public class RegistrarArtistaController implements Initializable {
 	}
 
 	@FXML
-	private void guardarArtista() {
+	private void guardarArtista(ActionEvent event) {
 		try {
 			String nacionalidad = cbNacionalidad.getValue();
 			if (nacionalidad == null) {
@@ -103,7 +105,7 @@ public class RegistrarArtistaController implements Initializable {
 					psPassword.getText(), apodo, especialidades);
 
 			mostrarInfo("Artista registrado correctamente");
-			reiniciar();
+			reiniciar(event);
 
 		} catch (ValidacionExcepcion e) {
 			mostrarError(e.getMessage());
@@ -126,7 +128,7 @@ public class RegistrarArtistaController implements Initializable {
 	}
 
 	@FXML
-	private void reiniciar() {
+	private void reiniciar(ActionEvent event){
 		txtNombre.clear();
 		psPassword.clear();
 		txtUsuario.clear();
@@ -141,7 +143,7 @@ public class RegistrarArtistaController implements Initializable {
 	}
 
 	@FXML
-	private void atras() {
+	private void atras(ActionEvent event) {
 		stageManager.switchScene(FxmlView.REGISTRAR_PERSONA);
 	}
 

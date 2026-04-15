@@ -13,7 +13,7 @@
 
     <top>
         <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #E57373;">
-            <Button onAction="#atras" style="-fx-background-color: white;" text="Atrás">
+            <Button fx:id="btnAtras" onAction="#atras" style="-fx-background-color: white;" text="Atrás">
                 <HBox.margin><Insets right="150.0" /></HBox.margin>
             </Button>
             <Label text="Mi Ficha">

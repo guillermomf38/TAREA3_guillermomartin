@@ -9,6 +9,7 @@
 
 package com.luisdbb.tarea3AD2024base.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,6 +29,7 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -69,7 +71,7 @@ public class LoginController implements Initializable {
        
     }
     @FXML
-    private void iniciarSesion() {
+    private void iniciarSesion(ActionEvent event) throws IOException {
         try {
             credencialesService.login(txtUsuario.getText(), psPassword.getText());
             Perfiles perfil = sesionService.getUsuarioActual().getPerfil();
@@ -84,7 +86,7 @@ public class LoginController implements Initializable {
     }
     
     @FXML
-    private void reiniciar() {
+    private void reiniciar(ActionEvent event) {
         txtUsuario.clear();
         psPassword.clear();
     }

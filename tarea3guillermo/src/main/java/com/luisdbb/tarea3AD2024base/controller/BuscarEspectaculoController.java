@@ -10,6 +10,7 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,8 +29,10 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
@@ -52,7 +55,9 @@ public class BuscarEspectaculoController implements Initializable {
     @FXML private Label lblNombre;
     @FXML private Label lblFechaini;
     @FXML private Label lblFechafin;
-   
+    @FXML
+	private Button btnAtras;
+	
 
     private List<Espectaculo> espectaculos;
 
@@ -91,7 +96,7 @@ public class BuscarEspectaculoController implements Initializable {
     }
 
     @FXML
-    private void atras() {
+    private void atras(ActionEvent event) {
         if (sesionService.isAdmin()) {
             stageManager.switchScene(FxmlView.MENU_ADMIN);
         } else if (sesionService.isCoordinacion()) {
