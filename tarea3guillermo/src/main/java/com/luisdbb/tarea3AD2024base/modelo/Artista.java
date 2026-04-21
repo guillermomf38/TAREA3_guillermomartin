@@ -16,6 +16,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -25,11 +26,11 @@ public class Artista extends Persona {
 
 	private String apodo;
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	private List<Especialidad> especialidades = new ArrayList<>();
 
-	@ManyToMany(mappedBy = "artistas")
+	@ManyToMany(mappedBy = "artistas", fetch = FetchType.EAGER)
 	private List<Numero> numeros = new ArrayList<>();
 
 	public Artista() {

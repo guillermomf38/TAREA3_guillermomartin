@@ -103,6 +103,14 @@ public class ModificarPersonaController implements Initializable {
 		cbNacionalidad.getItems()
 				.addAll(nacionalidadService.getPaises().values());
 		cargarPersonas();
+		lvPersonas.getSelectionModel().selectedIndexProperty()
+        .addListener((obs, oldVal, newVal) -> {
+            int idx = newVal.intValue();
+            if (idx >= 0 && idx < personas.size()) {
+                personaSeleccionada = personas.get(idx);
+                cargarPersona(); 
+            }
+        });
 	}
 
 	private void cargarPersonas() {
@@ -115,7 +123,7 @@ public class ModificarPersonaController implements Initializable {
 	}
 
 	@FXML
-	private void cargarPersona(ActionEvent event) {
+	private void cargarPersona() {
 		int idx = lvPersonas.getSelectionModel().getSelectedIndex();
 		if (idx < 0) {
 			mostrarError("Selecciona una persona de la lista");

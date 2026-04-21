@@ -84,7 +84,7 @@
                 <Insets left="20.0" right="20.0" top="20.0" />
             </padding>
 
-            <Label fx:id="lblTipoPerfil" style="-fx-font-weight: bold;" text="Selecciona una persona">
+            <Label style="-fx-font-weight: bold;" text="Selecciona una persona">
                 <font><Font name="Arial" size="16.0" /></font>
             </Label>
          <HBox prefHeight="479.0" prefWidth="610.0">
@@ -122,7 +122,7 @@
                      <HBox alignment="CENTER" prefHeight="148.0" prefWidth="333.0" spacing="40.0">
                         <children>
                            <Label text="¿Senior?" />
-                           <CheckBox fx:id="ckSenior" mnemonicParsing="false" />
+                           <CheckBox fx:id="ckSenior" onAction="#toggleFecha" mnemonicParsing="false" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">

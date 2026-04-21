@@ -51,7 +51,9 @@ public class CredencialesService {
 	public Credenciales crearCredenciales(String nombre, String password,
 			Perfiles perfil) {
 
-		if (nombre == null || nombre.isBlank()) {
+		nombre = nombre.toLowerCase().trim();
+
+		if (nombre.isBlank()) {
 			throw new ValidacionExcepcion(
 					"El nombre de usuario no puede estar vacio");
 		}
@@ -74,14 +76,14 @@ public class CredencialesService {
 			throw new ValidacionExcepcion(
 					"La contrasena debe tener mas de 2 caracteres");
 		}
-		if (!nombre.matches("[a-zA-Z]+")) {
+		if (!nombre.matches("[a-z]+")) {
 			throw new ValidacionExcepcion(
-					"El nombre de usuario solo puede contener letras sin tildes ni dieresis");
+					"El nombre solo puede contener letras sin tildes ni dieresis");
 		}
-		if (credencialesRepository.findByNombre(nombre.toLowerCase()) != null) {
+		if (credencialesRepository.findByNombre(nombre) != null) {
 			throw new ValidacionExcepcion("Ese nombre de usuario ya existe");
 		}
 
-		return new Credenciales(nombre.toLowerCase(), password, perfil);
+		return new Credenciales(nombre, password, perfil);
 	}
 }

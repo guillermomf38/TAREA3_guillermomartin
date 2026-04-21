@@ -8,6 +8,7 @@
 package com.luisdbb.tarea3AD2024base.services;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,17 +122,24 @@ public class EspectaculoService {
 			throw new ValidacionExcepcion(
 					"El nombre no puede superar los 25 caracteres");
 		}
-		if (fechaini == null || fechafin == null) {
-			throw new ValidacionExcepcion("Las fechas no pueden estar vacias");
-		}
-		if (fechafin.isBefore(fechaini)) {
+		if (fechaini == null) {
 			throw new ValidacionExcepcion(
-					"La fecha de fin no puede ser anterior a la de inicio");
+					"La fecha de inicio no puede estar vacia");
 		}
-		if (fechafin.isAfter(fechaini)) {
+		if (fechafin == null) {
 			throw new ValidacionExcepcion(
-					"El periodo no puede ser superior a 1 ano");
+					"La fecha de fin no puede estar vacia");
 		}
+		if (!fechafin.isAfter(fechaini)) {
+			throw new ValidacionExcepcion(
+					"La fecha de fin debe ser posterior a la de inicio");
+		}
+
+		long dias = ChronoUnit.DAYS.between(fechaini, fechafin);
+		if (dias > 365) {
+			throw new ValidacionExcepcion("El periodo no puede superar 1 año");
+		}
+
 		Espectaculo existente = espectaculoRepository.findByNombre(nombre);
 		if (existente != null && !existente.getId().equals(idPropio)) {
 			throw new ValidacionExcepcion(
