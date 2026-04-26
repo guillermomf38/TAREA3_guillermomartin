@@ -82,27 +82,24 @@ public class RegistrarArtistaController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		cbNacionalidad.getItems()
-				.addAll(nacionalidadService.getPaises().values());
+		cbNacionalidad.getItems().addAll(nacionalidadService.getPaises().values());
 	}
 
 	@FXML
 	private void guardarArtista(ActionEvent event) {
 		try {
 			String nacionalidad = cbNacionalidad.getValue();
-			if (nacionalidad == null) {
+			if (nacionalidad == null) 
+			{
 				mostrarError("Debes seleccionar una nacionalidad");
 				return;
 			}
 
 			List<Especialidad> especialidades = getEspecialidades();
 
-			String apodo = txtApodo.getText().isBlank() ? null
-					: txtApodo.getText().trim();
+			String apodo = txtApodo.getText().isBlank() ? null: txtApodo.getText().trim();
 
-			personaService.registrarArtista(txtNombre.getText(),
-					txtemail.getText(), nacionalidad, txtUsuario.getText(),
-					psPassword.getText(), apodo, especialidades);
+			personaService.registrarArtista(txtNombre.getText(),txtemail.getText(), nacionalidad, txtUsuario.getText(),psPassword.getText(), apodo, especialidades);
 
 			mostrarInfo("Artista registrado correctamente");
 			reiniciar(event);

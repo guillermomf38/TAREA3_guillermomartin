@@ -20,9 +20,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-
+import com.luisdbb.tarea3AD2024base.modelo.Artista;
+import com.luisdbb.tarea3AD2024base.modelo.Coordinacion;
 import com.luisdbb.tarea3AD2024base.modelo.Espectaculo;
-
+import com.luisdbb.tarea3AD2024base.modelo.Numero;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
 import com.luisdbb.tarea3AD2024base.services.SesionService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
@@ -35,6 +36,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 
 
 
@@ -42,69 +44,120 @@ import javafx.scene.control.ListView;
 public class BuscarEspectaculoController implements Initializable {
 
     @Lazy
-    @Autowired
-    private StageManager stageManager;
+	@Autowired
+	private StageManager stageManager;
 
-    @Autowired
-    private EspectaculoService espectaculoService;
+	@Autowired
+	private EspectaculoService espectaculoService;
 
-    @Autowired
-    private SesionService sesionService;
+	@Autowired
+	private SesionService sesionService;
 
-    @FXML private ListView<String> lvEspectaculos;
-    @FXML private Label lblNombre;
-    @FXML private Label lblFechaini;
-    @FXML private Label lblFechafin;
-    @FXML
+	@FXML
+	private ListView<String> lvEspectaculos;
+	@FXML
+	private Label lblNombre;
+	@FXML
+	private Label lblFechaini;
+	@FXML
+	private Label lblFechafin;
+	@FXML
+	private Label lblCoordinador;
+	@FXML
+	private TextArea taNumeros;
+	@FXML
 	private Button btnAtras;
-	
 
-    private List<Espectaculo> espectaculos;
+	private List<Espectaculo> espectaculos;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        cargarEspectaculos();
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		cargarEspectaculos();
 
+		lvEspectaculos.getSelectionModel().selectedIndexProperty().addListener((obs, o, n) -> {
+					int idx = n.intValue();
+					if (idx >= 0 && idx < espectaculos.size()) 
+					{
+						mostrarDetalle(espectaculos.get(idx));
+					}
+				});
+	}
 
-        lvEspectaculos.getSelectionModel().selectedIndexProperty()
-                .addListener((obs, o, n) -> {
-                    int idx = n.intValue();
-                    if (idx >= 0 && idx < espectaculos.size()) {
-                        mostrarDetalle(espectaculos.get(idx));
-                    }
-                });
-    }
+	private void cargarEspectaculos() {
+		espectaculos = espectaculoService.listarEspectaculos();
+		ObservableList<String> items = FXCollections.observableArrayList();
+		for (Espectaculo e : espectaculos) 
+		{
+			items.add(e.getId() + " | " + e.getNombre() + " | "
+					+ e.getFechaini() + " -> " + e.getFechafin());
+		}
+		lvEspectaculos.setItems(items);
+	}
 
-    private void cargarEspectaculos() {
-        espectaculos = espectaculoService.listarEspectaculos();
-        ObservableList<String> items = FXCollections.observableArrayList();
-        for (Espectaculo e : espectaculos) {
-            items.add(e.getId() + " | " + e.getNombre()
-                    + " | " + e.getFechaini()
-                    + " → " + e.getFechafin());
-        }
-        lvEspectaculos.setItems(items);
-    }
+	private void mostrarDetalle(Espectaculo e) {
 
-    private void mostrarDetalle(Espectaculo e) {
+		if (e == null)
+			return;
 
-        if (e == null) return;
+		lblNombre.setText("ID: " + e.getId() + " | " + e.getNombre());
+		lblFechaini.setText(e.getFechaini() != null ? e.getFechaini().toString() : "-");
+		lblFechafin.setText(e.getFechafin() != null ? e.getFechafin().toString() : "-");
 
-        lblNombre.setText(e.getNombre() != null ? e.getNombre() : "-");
-        lblFechaini.setText(e.getFechaini() != null ? e.getFechaini().toString() : "-");
-        lblFechafin.setText(e.getFechafin() != null ? e.getFechafin().toString() : "-");
-    }
+		Espectaculo completo = espectaculoService.verEspectaculoCompleto(e.getId());
+		Coordinacion coord = completo.getCoordinador();
+		if (coord != null) 
+		{
+			lblCoordinador.setText(coord.getNombre() + " | Email: " + coord.getEmail()+ " | Senior: " + (coord.isSenior() ? "Si" : "No"));
+		} else 
+		{
+			lblCoordinador.setText("Sin coordinador asignado");
+		}
 
-    @FXML
-    private void atras(ActionEvent event) {
-        if (sesionService.isAdmin()) {
-            stageManager.switchScene(FxmlView.MENU_ADMIN);
-        } else if (sesionService.isCoordinacion()) {
-            stageManager.switchScene(FxmlView.MENU_COORDINADOR);
-        } else if (sesionService.isArtista()) {
-            stageManager.switchScene(FxmlView.MENU_ARTISTA);
-        } else {
-            stageManager.switchScene(FxmlView.LOGIN);
-        }
-    }
+		List<Numero> numeros = espectaculoService.listarNumerosDeEspectaculo(completo.getId());
+
+		StringBuilder sb = new StringBuilder();
+		for (Numero n : numeros) {
+			sb.append("────────────────────────────\n");
+			sb.append("ID: ").append(n.getId()).append(" | Orden: ").append(n.getOrden()).append("\n");
+			sb.append("Nombre: ").append(n.getNombre()).append("\n");
+			sb.append("Duración: ").append(n.getDuracion()).append(" min\n");
+			sb.append("Artistas:\n");
+
+			if (n.getArtistas().isEmpty()) 
+			{
+				sb.append("Sin artistas asignados\n");
+			} else {
+				for (Artista a : n.getArtistas()) {
+					sb.append(" - ").append(a.getNombre());
+					sb.append(" | Nacionalidad: ").append(a.getNacionalidad());
+					sb.append(" | Especialidad: ").append(a.getEspecialidades());
+					if (a.getApodo() != null && !a.getApodo().isBlank()) 
+					{
+						sb.append(" | Apodo: ").append(a.getApodo());
+					}
+					sb.append("\n");
+				}
+			}
+			sb.append("\n");
+		}
+
+		taNumeros.setText(sb.isEmpty() ? "Sin numeros registrados" : sb.toString());
+	}
+
+	@FXML
+	private void atras(ActionEvent event) {
+		if (sesionService.isAdmin()) 
+		{
+			stageManager.switchScene(FxmlView.MENU_ADMIN);
+		} else if (sesionService.isCoordinacion()) 
+		{
+			stageManager.switchScene(FxmlView.MENU_COORDINADOR);
+		} else if (sesionService.isArtista()) 
+		{
+			stageManager.switchScene(FxmlView.MENU_ARTISTA);
+		} else 
+		{
+			stageManager.switchScene(FxmlView.LOGIN);
+		}
+	}
 }

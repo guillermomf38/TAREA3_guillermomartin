@@ -26,18 +26,19 @@ public class CredencialesService {
 
 	public void login(String nombre, String password) {
 
-		if (nombre == null || nombre.isBlank()) {
-			throw new ValidacionExcepcion(
-					"El nombre de usuario no puede estar vacio");
+		if (nombre == null || nombre.isBlank()) 
+		{
+			throw new ValidacionExcepcion("El nombre de usuario no puede estar vacio");
 		}
-		if (password == null || password.isBlank()) {
+		if (password == null || password.isBlank()) 
+		{
 			throw new ValidacionExcepcion("La contrasena no puede estar vacia");
 		}
 
-		Credenciales credenciales = credencialesRepository
-				.findByNombreAndPassword(nombre, password);
+		Credenciales credenciales = credencialesRepository.findByNombreAndPassword(nombre, password);
 
-		if (credenciales == null) {
+		if (credenciales == null) 
+		{
 			throw new ValidacionExcepcion("Usuario o contrasena incorrectos");
 		}
 
@@ -48,39 +49,41 @@ public class CredencialesService {
 		sesionService.cerrarSesion();
 	}
 
-	public Credenciales crearCredenciales(String nombre, String password,
-			Perfiles perfil) {
+	public Credenciales crearCredenciales(String nombre, String password,Perfiles perfil) 
+	{
 
 		nombre = nombre.toLowerCase().trim();
 
-		if (nombre.isBlank()) {
-			throw new ValidacionExcepcion(
-					"El nombre de usuario no puede estar vacio");
+		if (nombre.isBlank()) 
+		{
+			throw new ValidacionExcepcion("El nombre de usuario no puede estar vacio");
 		}
-		if (password == null || password.isBlank()) {
+		if (password == null || password.isBlank()) 
+		{
 			throw new ValidacionExcepcion("La contrasena no puede estar vacia");
 		}
-		if (nombre.contains(" ")) {
-			throw new ValidacionExcepcion(
-					"El nombre de usuario no puede contener espacios");
+		if (nombre.contains(" ")) 
+		{
+			throw new ValidacionExcepcion("El nombre de usuario no puede contener espacios");
 		}
-		if (password.contains(" ")) {
-			throw new ValidacionExcepcion(
-					"La contrasena no puede contener espacios");
+		if (password.contains(" ")) 
+		{
+			throw new ValidacionExcepcion("La contrasena no puede contener espacios");
 		}
-		if (nombre.length() <= 2) {
-			throw new ValidacionExcepcion(
-					"El nombre de usuario debe tener mas de 2 caracteres");
+		if (nombre.length() <= 2) 
+		{
+			throw new ValidacionExcepcion("El nombre de usuario debe tener mas de 2 caracteres");
 		}
-		if (password.length() <= 2) {
-			throw new ValidacionExcepcion(
-					"La contrasena debe tener mas de 2 caracteres");
+		if (password.length() <= 2) 
+		{
+			throw new ValidacionExcepcion("La contrasena debe tener mas de 2 caracteres");
 		}
-		if (!nombre.matches("[a-z]+")) {
-			throw new ValidacionExcepcion(
-					"El nombre solo puede contener letras sin tildes ni dieresis");
+		if (!nombre.matches("[a-z]+")) 
+		{
+			throw new ValidacionExcepcion("El nombre solo puede contener letras sin tildes ni dieresis");
 		}
-		if (credencialesRepository.findByNombre(nombre) != null) {
+		if (credencialesRepository.findByNombre(nombre) != null) 
+		{
 			throw new ValidacionExcepcion("Ese nombre de usuario ya existe");
 		}
 

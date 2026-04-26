@@ -93,10 +93,9 @@ public class LoginController implements Initializable {
     private void cargarEspectaculos() {
         List<Espectaculo> espectaculos = espectaculoService.listarEspectaculos();
         ObservableList<String> items = FXCollections.observableArrayList();
-        for (Espectaculo e : espectaculos) {
-            items.add(e.getId() + " | " + e.getNombre()
-                    + " | " + e.getFechaini()
-                    + " → " + e.getFechafin());
+        for (Espectaculo e : espectaculos) 
+        {
+            items.add(e.getId() + " | " + e.getNombre() + " | " + e.getFechaini()+ " ->" + e.getFechafin());
         }
         lvEspectaculos.setItems(items);
     }

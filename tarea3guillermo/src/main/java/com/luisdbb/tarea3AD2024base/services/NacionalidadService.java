@@ -35,9 +35,9 @@ public class NacionalidadService {
         Map<String, String> paises = new LinkedHashMap<>();
         Properties prop = new Properties();
 
-        try (InputStream is = getClass().getClassLoader()
-                .getResourceAsStream("ruta.properties")) {
-            if (is == null) {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("ruta.properties")) {
+            if (is == null) 
+            {
                 System.out.println("No se encontro ruta.properties");
                 return paises;
             }
@@ -54,24 +54,21 @@ public class NacionalidadService {
         }
 
         try {
-            InputStream xmlIs = getClass().getClassLoader()
-                    .getResourceAsStream(ruta);
+            InputStream xmlIs = getClass().getClassLoader().getResourceAsStream(ruta);
             if (xmlIs == null) {
                 System.out.println("No se encontro paises.xml en: " + ruta);
                 return paises;
             }
-            DocumentBuilder builder = DocumentBuilderFactory
-                    .newInstance().newDocumentBuilder();
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(xmlIs);
             doc.getDocumentElement().normalize();
 
             NodeList lista = doc.getElementsByTagName("pais");
-            for (int i = 0; i < lista.getLength(); i++) {
+            for (int i = 0; i < lista.getLength(); i++) 
+            {
                 Element pais = (Element) lista.item(i);
-                String id = pais.getElementsByTagName("id")
-                        .item(0).getTextContent();
-                String nombre = pais.getElementsByTagName("nombre")
-                        .item(0).getTextContent();
+                String id = pais.getElementsByTagName("id").item(0).getTextContent();
+                String nombre = pais.getElementsByTagName("nombre").item(0).getTextContent();
                 paises.put(id.trim(), nombre.trim());
             }
         } catch (Exception e) {

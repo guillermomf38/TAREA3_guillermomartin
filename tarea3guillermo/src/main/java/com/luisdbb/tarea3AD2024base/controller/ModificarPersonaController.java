@@ -100,13 +100,12 @@ public class ModificarPersonaController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		cbNacionalidad.getItems()
-				.addAll(nacionalidadService.getPaises().values());
+		cbNacionalidad.getItems().addAll(nacionalidadService.getPaises().values());
 		cargarPersonas();
-		lvPersonas.getSelectionModel().selectedIndexProperty()
-        .addListener((obs, oldVal, newVal) -> {
+		lvPersonas.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> {
             int idx = newVal.intValue();
-            if (idx >= 0 && idx < personas.size()) {
+            if (idx >= 0 && idx < personas.size()) 
+            {
                 personaSeleccionada = personas.get(idx);
                 cargarPersona(); 
             }
@@ -115,17 +114,14 @@ public class ModificarPersonaController implements Initializable {
 
 	private void cargarPersonas() {
 		personas = personaService.listarPersonas();
-		lvPersonas
-				.setItems(FXCollections.observableArrayList(personas.stream()
-						.map(p -> p.getId() + " - " + p.getNombre() + " ("
-								+ p.getCredenciales().getPerfil() + ")")
-						.toList()));
+		lvPersonas.setItems(FXCollections.observableArrayList(personas.stream().map(p -> p.getId() + " - " + p.getNombre() + " ("+ p.getCredenciales().getPerfil() + ")").toList()));
 	}
 
 	@FXML
 	private void cargarPersona() {
 		int idx = lvPersonas.getSelectionModel().getSelectedIndex();
-		if (idx < 0) {
+		if (idx < 0) 
+		{
 			mostrarError("Selecciona una persona de la lista");
 			return;
 		}
@@ -140,18 +136,12 @@ public class ModificarPersonaController implements Initializable {
 			panelArtista.setManaged(true);
 			panelCoord.setVisible(false);
 			panelCoord.setManaged(false);
-			txtApodo.setText(
-					artista.getApodo() != null ? artista.getApodo() : "");
-			ckAcrobacia.setSelected(artista.getEspecialidades()
-					.contains(Especialidad.ACROBACIA));
-			ckHumor.setSelected(
-					artista.getEspecialidades().contains(Especialidad.HUMOR));
-			ckMagia.setSelected(
-					artista.getEspecialidades().contains(Especialidad.MAGIA));
-			ckEquilibrismo.setSelected(artista.getEspecialidades()
-					.contains(Especialidad.EQUILIBRISMO));
-			ckMalabarismo.setSelected(artista.getEspecialidades()
-					.contains(Especialidad.MALABARISMO));
+			txtApodo.setText(artista.getApodo() != null ? artista.getApodo() : "");
+			ckAcrobacia.setSelected(artista.getEspecialidades().contains(Especialidad.ACROBACIA));
+			ckHumor.setSelected(artista.getEspecialidades().contains(Especialidad.HUMOR));
+			ckMagia.setSelected(artista.getEspecialidades().contains(Especialidad.MAGIA));
+			ckEquilibrismo.setSelected(artista.getEspecialidades().contains(Especialidad.EQUILIBRISMO));
+			ckMalabarismo.setSelected(artista.getEspecialidades().contains(Especialidad.MALABARISMO));
 
 		} else if (personaSeleccionada instanceof Coordinacion coord) {
 			
@@ -174,16 +164,16 @@ public class ModificarPersonaController implements Initializable {
 
 	@FXML
 	private void guardar(ActionEvent event)  {
-		if (personaSeleccionada == null) {
+		if (personaSeleccionada == null) 
+		{
 			mostrarError("Primero carga una persona");
 			return;
 		}
 		try {
-			personaService.modificarDatosPersonales(personaSeleccionada.getId(),
-					txtNombre.getText(), txtEmail.getText(),
-					cbNacionalidad.getValue());
+			personaService.modificarDatosPersonales(personaSeleccionada.getId(),txtNombre.getText(), txtEmail.getText(),cbNacionalidad.getValue());
 
-			if (personaSeleccionada instanceof Artista) {
+			if (personaSeleccionada instanceof Artista) 
+			{
 				List<Especialidad> esp = new ArrayList<>();
 				if (ckAcrobacia.isSelected())
 					esp.add(Especialidad.ACROBACIA);
@@ -195,20 +185,17 @@ public class ModificarPersonaController implements Initializable {
 					esp.add(Especialidad.EQUILIBRISMO);
 				if (ckMalabarismo.isSelected())
 					esp.add(Especialidad.MALABARISMO);
-				String apodo = txtApodo.getText().isBlank() ? null
-						: txtApodo.getText().trim();
-				personaService.modificarArtista(personaSeleccionada.getId(),
-						apodo, esp);
+				String apodo = txtApodo.getText().isBlank() ? null: txtApodo.getText().trim();
+				personaService.modificarArtista(personaSeleccionada.getId(),apodo, esp);
 
-			} else if (personaSeleccionada instanceof Coordinacion) {
+			} else if (personaSeleccionada instanceof Coordinacion) 
+			{
 				boolean senior = ckSenior.isSelected();
 				if (senior && dpFechaSenior.getValue() == null) {
 					mostrarError("Si es senior indica la fecha");
 					return;
 				}
-				personaService.modificarCoordinacion(
-						personaSeleccionada.getId(), senior,
-						senior ? dpFechaSenior.getValue() : null);
+				personaService.modificarCoordinacion(personaSeleccionada.getId(), senior,senior ? dpFechaSenior.getValue() : null);
 			}
 
 			mostrarInfo("Persona modificada correctamente");

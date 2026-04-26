@@ -69,8 +69,7 @@ public class RegistrarCoordinadorController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		cbNacionalidad.getItems()
-				.addAll(nacionalidadService.getPaises().values());
+		cbNacionalidad.getItems().addAll(nacionalidadService.getPaises().values());
 
 		dpFecha.setDisable(true);
 	}
@@ -98,10 +97,7 @@ public class RegistrarCoordinadorController implements Initializable {
 				return;
 			}
 
-			personaService.registrarCoordinacion(txtNombre.getText(),
-					txtemail.getText(), nacionalidad, txtUsuario.getText(),
-					psPassword.getText(), senior,
-					senior ? dpFecha.getValue() : null);
+			personaService.registrarCoordinacion(txtNombre.getText(),txtemail.getText(), nacionalidad, txtUsuario.getText(),psPassword.getText(), senior,senior ? 			dpFecha.getValue() : null);
 
 			mostrarInfo("Coordinador registrado correctamente");
 			reiniciar(event);

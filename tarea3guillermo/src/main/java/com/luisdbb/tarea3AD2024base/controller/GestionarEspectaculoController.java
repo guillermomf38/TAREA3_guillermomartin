@@ -7,7 +7,6 @@
 
 package com.luisdbb.tarea3AD2024base.controller;
 
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-
 @Controller
 public class GestionarEspectaculoController implements Initializable {
 
@@ -67,40 +65,40 @@ public class GestionarEspectaculoController implements Initializable {
 	private ComboBox<String> cbCoordinador;
 	@FXML
 	private HBox hboxCoord;
+	@FXML
+	private Button btnCrearEsp;
+	@FXML
+	private Button btnGuardarEsp;
 
 	@FXML
 	private ListView<String> lvNumeros;
 	@FXML
 	private TextField txtNombreNum;
 	@FXML
+	private TextField txtOrden;
+	@FXML
 	private TextField txtDuracion;
+	@FXML
+	private Button btnCrearNum;
+	@FXML
+	private Button btnGuardarNum;
+
 	@FXML
 	private ListView<String> lvArtistas;
 	@FXML
-	private Button btnAtras;
-	@FXML
-	private Button btnNuevoEspectaculo;
-	@FXML
-	private Button BtnGuardarEspectaculo;
-	@FXML
-	private Button btnLimpiarEspectaculo;
-	
-	@FXML
-	private Button btnNuevoNumero;
-	@FXML
-	private Button btnEditarNumero;
-	@FXML
-	private Button btnGuardarNumero;
+	private Button btnNuevoNum;
 	@FXML
 	private Button btnAsignarArtistas;
-	
-	
-	
-	
+	@FXML
+	private Button btnLimpiar;
+	@FXML
+	private Button btnAtras;
+
 	private List<Espectaculo> espectaculos;
 	private List<Coordinacion> coordinadores;
 	private List<Artista> artistas;
 	private List<Numero> numerosActuales;
+
 	private Espectaculo espectaculoSeleccionado;
 	private Numero numeroSeleccionado;
 
@@ -109,27 +107,33 @@ public class GestionarEspectaculoController implements Initializable {
 		cargarEspectaculos();
 		cargarArtistas();
 
-		if (sesionService.isCoordinacion()) {
+		if (sesionService.isCoordinacion()) 
+		{
 			hboxCoord.setVisible(false);
 			hboxCoord.setManaged(false);
 		} else {
 			cargarCoordinadores();
 		}
 
-		lvEspectaculos.getSelectionModel().selectedIndexProperty()
-				.addListener((obs, o, n) -> {
+		lvEspectaculos.getSelectionModel().selectedIndexProperty().addListener((obs, o, n) -> {
 					int idx = n.intValue();
 					if (idx >= 0 && idx < espectaculos.size()) {
 						seleccionarEspectaculo(espectaculos.get(idx));
 					}
 				});
 
-		lvNumeros.getSelectionModel().selectedIndexProperty()
-				.addListener((obs, o, n) -> {
+		lvNumeros.getSelectionModel().selectedIndexProperty().addListener((obs, o, n) -> {
 					int idx = n.intValue();
 					if (numerosActuales != null && idx >= 0
-							&& idx < numerosActuales.size()) {
-						seleccionarNumero(numerosActuales.get(idx));
+							&& idx < numerosActuales.size()) 
+					{
+						numeroSeleccionado = numerosActuales.get(idx);
+						txtNombreNum.setText(numeroSeleccionado.getNombre());
+						txtOrden.setText(String.valueOf(numeroSeleccionado.getOrden()));
+						txtDuracion.setText(String.valueOf(numeroSeleccionado.getDuracion()));
+
+						btnGuardarNum.setDisable(false);
+						btnCrearNum.setDisable(true);
 					}
 				});
 
@@ -137,22 +141,20 @@ public class GestionarEspectaculoController implements Initializable {
 	}
 
 	private void cargarEspectaculos() {
-
 		espectaculos = espectaculoService.listarEspectaculos();
-
 		ObservableList<String> items = FXCollections.observableArrayList();
-
-		for (Espectaculo e : espectaculos) {
+		for (Espectaculo e : espectaculos) 
+		{
 			items.add(e.getId() + " | " + e.getNombre());
 		}
-
 		lvEspectaculos.setItems(items);
 	}
 
 	private void cargarCoordinadores() {
 		coordinadores = espectaculoService.listarCoordinadores();
 		ObservableList<String> items = FXCollections.observableArrayList();
-		for (Coordinacion c : coordinadores) {
+		for (Coordinacion c : coordinadores) 
+		{
 			items.add(c.getId() + " - " + c.getNombre());
 		}
 		cbCoordinador.setItems(items);
@@ -166,155 +168,208 @@ public class GestionarEspectaculoController implements Initializable {
 		}
 		lvArtistas.setItems(items);
 	}
+
 	private void seleccionarEspectaculo(Espectaculo e) {
 		espectaculoSeleccionado = e;
-	    txtNombreEsp.setText(e.getNombre());
-	    dpFechaini.setValue(e.getFechaini());
-	    dpFechafin.setValue(e.getFechafin());
+		txtNombreEsp.setText(e.getNombre());
+		dpFechaini.setValue(e.getFechaini());
+		dpFechafin.setValue(e.getFechafin());
 
-	    numerosActuales = espectaculoService.listarNumerosDeEspectaculo(e.getId());
-	    ObservableList<String> items = FXCollections.observableArrayList();
-	    for (Numero n : numerosActuales) {
-	        items.add(n.getOrden() + ". " + n.getNombre()
-	                + " (" + n.getDuracion() + " min)");
-	    }
-	    lvNumeros.setItems(items);
+		btnGuardarEsp.setDisable(false);
+		btnCrearEsp.setDisable(true);
 
-	    txtNombreNum.clear();
-	    txtDuracion.clear();
-	    numeroSeleccionado = null;
-	}
+		numerosActuales = espectaculoService.listarNumerosDeEspectaculo(e.getId());
+		ObservableList<String> items = FXCollections.observableArrayList();
+		for (Numero n : numerosActuales) {
+			items.add(n.getOrden() + ". " + n.getNombre() + " ("+ n.getDuracion() + " min)");
+		}
+		lvNumeros.setItems(items);
 
-	private void seleccionarNumero(Numero n) {
-		numeroSeleccionado = n;
-		txtNombreNum.setText(n.getNombre());
-		txtDuracion.setText(String.valueOf(n.getDuracion()));
+		limpiarFormularioNumero();
 	}
 
 	@FXML
-	private void nuevoEspectaculo(ActionEvent event)  {
+	private void nuevoEspectaculo(ActionEvent event) {
+
 		espectaculoSeleccionado = null;
-		limpiarEspectaculo(event);
+		btnCrearEsp.setDisable(false);
+		btnGuardarEsp.setDisable(true);
+		limpiarEspectaculo();
 	}
 
 	@FXML
-	private void guardarEspectaculo(ActionEvent event)  {
+	private void crearEspectaculo(ActionEvent event) {
 		try {
 			Coordinacion coord = getCoordinador();
 			if (coord == null) {
 				mostrarError("Debes seleccionar un coordinador");
 				return;
 			}
-			if (espectaculoSeleccionado == null) {
-				espectaculoSeleccionado = espectaculoService.crearEspectaculo(
-						txtNombreEsp.getText(), dpFechaini.getValue(),
-						dpFechafin.getValue(), coord);
-				mostrarInfo("Espectaculo creado.");
-			} else {
-				espectaculoService.modificarEspectaculo(
-						espectaculoSeleccionado.getId(), txtNombreEsp.getText(),
-						dpFechaini.getValue(), dpFechafin.getValue(), coord);
-				mostrarInfo("Espectaculo modificado correctamente");
-			}
+			espectaculoSeleccionado = espectaculoService.crearEspectaculo(txtNombreEsp.getText(), dpFechaini.getValue(),dpFechafin.getValue(), coord);
+
+			mostrarInfo("Espectáculo creado. Añade al menos 3 numeros antes de guardar.");
+
+			btnGuardarEsp.setDisable(false);
+			btnCrearEsp.setDisable(true);
+
 			cargarEspectaculos();
+			numerosActuales = new ArrayList<>();
+			lvNumeros.getItems().clear();
+
 		} catch (ValidacionExcepcion e) {
 			mostrarError(e.getMessage());
 		}
 	}
 
 	@FXML
-	private void limpiarEspectaculo(ActionEvent event)  {
+	private void guardarEspectaculo(ActionEvent event) {
+		if (espectaculoSeleccionado == null) {
+			mostrarError("Primero crea o selecciona un espectaculo");
+			return;
+		}
+
+		List<Numero> numeros = espectaculoService.listarNumerosDeEspectaculo(espectaculoSeleccionado.getId());
+		if (numeros.size() < 3) 
+		{
+			mostrarError("El espectaculo debe tener al menos 3 numeros. "+ "Actualmente tiene: " + numeros.size());
+			return;
+		}
+		for (Numero n : numeros) {
+			if (n.getArtistas().isEmpty()) 
+			{
+				mostrarError("El numero '" + n.getNombre()+ "' no tiene artistas asignados. "+ "Cada numero debe tener al menos 1 artista.");
+				return;
+			}
+		}
+
+		try {
+			Coordinacion coord = getCoordinador();
+			if (coord == null) 
+			{
+				mostrarError("Debes seleccionar un coordinador");
+				return;
+			}
+			espectaculoService.modificarEspectaculo(espectaculoSeleccionado.getId(), txtNombreEsp.getText(),dpFechaini.getValue(), dpFechafin.getValue(), coord);
+
+			mostrarInfo("Espectaculo guardado correctamente con "+ numeros.size() + " numeros");
+			cargarEspectaculos();
+			nuevoEspectaculo(event);
+
+		} catch (ValidacionExcepcion e) {
+			mostrarError(e.getMessage());
+		}
+	}
+
+	@FXML
+	private void limpiarEspectaculo() {
 		txtNombreEsp.clear();
 		dpFechaini.setValue(null);
 		dpFechafin.setValue(null);
 		cbCoordinador.setValue(null);
 		lvNumeros.getItems().clear();
-		txtNombreNum.clear();
-		txtDuracion.clear();
-		numeroSeleccionado = null;
+		numerosActuales = null;
+		limpiarFormularioNumero();
 	}
 
 	@FXML
-	private void nuevoNumero(ActionEvent event)  {
+	private void nuevoNumero(ActionEvent event) {
 		if (espectaculoSeleccionado == null) {
-			mostrarError("Primero selecciona o guarda un espectaculo");
+			mostrarError("Primero crea o selecciona un espectaculo");
 			return;
 		}
+
 		numeroSeleccionado = null;
-		txtNombreNum.clear();
-		txtDuracion.clear();
+		btnCrearNum.setDisable(false);
+		btnGuardarNum.setDisable(true);
+		limpiarFormularioNumero();
 	}
 
 	@FXML
-	private void editarNumero(ActionEvent event) {
-		if (numeroSeleccionado == null) {
-			mostrarError("Selecciona un numero de la lista");
+	private void crearNumero(ActionEvent event) {
+		if (espectaculoSeleccionado == null) {
+			mostrarError("Primero crea o selecciona un espectaculo");
+			return;
+		}
+		try {
+			espectaculoService.crearNumero(txtOrden.getText(),txtNombreNum.getText(), txtDuracion.getText(),espectaculoSeleccionado);
+
+			mostrarInfo("Numero creado correctamente");
+			seleccionarEspectaculo(espectaculoSeleccionado);
+
+		} catch (ValidacionExcepcion e) {
+			mostrarError(e.getMessage());
 		}
 	}
 
 	@FXML
 	private void guardarNumero(ActionEvent event) {
-		if (espectaculoSeleccionado == null) {
-			mostrarError("Primero selecciona o guarda un espectaculo");
+		if (numeroSeleccionado == null) {
+			mostrarError("Selecciona un numero para editar");
 			return;
 		}
 		try {
-			double duracion = Double
-					.parseDouble(txtDuracion.getText().replace(",", "."));
-			if (numeroSeleccionado == null) {
-				espectaculoService.crearNumero(txtNombreNum.getText(), duracion,
-						espectaculoSeleccionado);
-				mostrarInfo("Numero creado correctamente");
-			} else {
-				espectaculoService.modificarNumero(numeroSeleccionado.getId(),
-						txtNombreNum.getText(), duracion);
-				mostrarInfo("Numero modificado correctamente");
-			}
+			espectaculoService.modificarNumero(numeroSeleccionado.getId(),txtOrden.getText(), txtNombreNum.getText(),txtDuracion.getText());
+
+			mostrarInfo("Numero modificado correctamente");
 			seleccionarEspectaculo(espectaculoSeleccionado);
+			nuevoNumero(event);
+
 		} catch (ValidacionExcepcion e) {
 			mostrarError(e.getMessage());
-		} catch (NumberFormatException e) {
-			mostrarError("Duracion invalida. Usa formato: 5.0 o 5.5");
 		}
 	}
 
 	@FXML
 	private void asignarArtistas(ActionEvent event) {
-	    if (numeroSeleccionado == null) {
-	        mostrarError("Selecciona un numero primero");
-	        return;
-	    }
-	    List<Integer> indices = lvArtistas.getSelectionModel().getSelectedIndices();
-	    if (indices.isEmpty()) {
-	        mostrarError("Selecciona al menos un artista");
-	        return;
-	    }
-	    try {
-	        List<Artista> seleccionados = new ArrayList<>();
-	        for (Integer idx : indices) {
-	            seleccionados.add(artistas.get(idx));
-	        }
-	        espectaculoService.asignarArtistas(
-	                numeroSeleccionado.getId(), seleccionados);
-	        mostrarInfo("Artistas asignados correctamente");
-	    } catch (ValidacionExcepcion e) {
-	        mostrarError(e.getMessage());
-	    }
+		if (numeroSeleccionado == null) {
+			mostrarError("Selecciona un numero primero");
+			return;
+		}
+		List<Integer> indices = lvArtistas.getSelectionModel().getSelectedIndices();
+		if (indices.isEmpty()) 
+		{
+			mostrarError("Debes seleccionar al menos un artista");
+			return;
+		}
+		try {
+			List<Artista> seleccionados = new ArrayList<>();
+			for (Integer idx : indices) 
+			{
+				seleccionados.add(artistas.get(idx));
+			}
+			espectaculoService.asignarArtistas(numeroSeleccionado.getId(),seleccionados);
+			mostrarInfo("Artistas asignados correctamente");
+		} catch (ValidacionExcepcion e) {
+			mostrarError(e.getMessage());
+		}
 	}
 
 	private Coordinacion getCoordinador() {
-		if (sesionService.isCoordinacion()) {
-	        String usuario = sesionService.getUsuarioActual().getNombre();
-	        for (Coordinacion c : espectaculoService.listarCoordinadores()) {
-	            if (c.getCredenciales().getNombre().equals(usuario)) {
-	                return c;
-	            }
-	        }
-	        return null;
-	    }
-	    int idx = cbCoordinador.getSelectionModel().getSelectedIndex();
-	    if (idx < 0 || coordinadores == null) return null;
-	    return coordinadores.get(idx);
+		if (sesionService.isCoordinacion()) 
+		{
+			String usuario = sesionService.getUsuarioActual().getNombre();
+			for (Coordinacion c : espectaculoService.listarCoordinadores())
+			{
+				if (c.getCredenciales().getNombre().equals(usuario)) 
+				{
+					return c;
+				}
+			}
+			return null;
+		}
+		int idx = cbCoordinador.getSelectionModel().getSelectedIndex();
+		if (idx < 0 || coordinadores == null)
+			return null;
+		return coordinadores.get(idx);
+	}
+
+	private void limpiarFormularioNumero() {
+		txtNombreNum.clear();
+		txtOrden.clear();
+		txtDuracion.clear();
+		numeroSeleccionado = null;
+		btnCrearNum.setDisable(false);
+		btnGuardarNum.setDisable(true);
 	}
 
 	@FXML

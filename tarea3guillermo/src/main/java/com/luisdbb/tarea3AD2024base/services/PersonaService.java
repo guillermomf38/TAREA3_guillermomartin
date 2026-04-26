@@ -42,53 +42,44 @@ public class PersonaService {
 	@Autowired
 	private NacionalidadService nacionalidadService;
 
-	public void registrarArtista(String nombre, String email,
-			String nacionalidad, String credNombre, String credPassword,
-			String apodo, List<Especialidad> especialidades) {
+	public void registrarArtista(String nombre, String email,String nacionalidad, String credNombre, String credPassword,String apodo, List<Especialidad> especialidades) 
+	{
 
 		validarDatosPersonales(nombre, email, nacionalidad);
 
-		if (especialidades == null || especialidades.isEmpty()) {
-			throw new ValidacionExcepcion(
-					"El artista debe tener al menos una especialidad");
+		if (especialidades == null || especialidades.isEmpty()) 
+		{
+			throw new ValidacionExcepcion("El artista debe tener al menos una especialidad");
 		}
 
-		Credenciales credenciales = credencialesService
-				.crearCredenciales(credNombre, credPassword, Perfiles.ARTISTA);
+		Credenciales credenciales = credencialesService.crearCredenciales(credNombre, credPassword, Perfiles.ARTISTA);
 
-		Artista artista = new Artista(email, nombre, nacionalidad, credenciales,
-				apodo, especialidades);
+		Artista artista = new Artista(email, nombre, nacionalidad, credenciales,apodo, especialidades);
 		artistaRepository.save(artista);
 	}
 
-	public void registrarCoordinacion(String nombre, String email,
-			String nacionalidad, String credNombre, String credPassword,
-			boolean senior, LocalDate fechasenior) {
+	public void registrarCoordinacion(String nombre, String email,String nacionalidad, String credNombre, String credPassword, boolean senior, LocalDate fechasenior) 
+	{
 
 		validarDatosPersonales(nombre, email, nacionalidad);
 
-		if (senior && fechasenior == null) {
-			throw new ValidacionExcepcion(
-					"Si es senior debe indicar la fecha desde cuando");
+		if (senior && fechasenior == null) 
+		{
+			throw new ValidacionExcepcion("Si es senior debe indicar la fecha desde cuando");
 		}
 
-		Credenciales credenciales = credencialesService.crearCredenciales(
-				credNombre, credPassword, Perfiles.COORDINACION);
+		Credenciales credenciales = credencialesService.crearCredenciales(credNombre, credPassword, Perfiles.COORDINACION);
 
-		Coordinacion coordinacion = new Coordinacion(email, nombre,
-				nacionalidad, credenciales, senior,
-				senior ? fechasenior : null);
+		Coordinacion coordinacion = new Coordinacion(email, nombre,nacionalidad, credenciales, senior,senior ? fechasenior : null);
 		coordinacionRepository.save(coordinacion);
 	}
 
-	public void modificarDatosPersonales(Long id, String nombre, String email,
-			String nacionalidad) {
-		Persona persona = personaRepository.findById(id)
-				.orElseThrow(() -> new EntidadNoEncontradaExcepcion(
-						"Persona no encontrada"));
+	public void modificarDatosPersonales(Long id, String nombre, String email,String nacionalidad) 
+	{
+		Persona persona = personaRepository.findById(id).orElseThrow(() -> new EntidadNoEncontradaExcepcion("Persona no encontrada"));
 
-		if (!persona.getEmail().equals(email)
-				&& personaRepository.findByEmail(email) != null) {
+		if (!persona.getEmail().equals(email) && personaRepository.findByEmail(email) != null) 
+		{
 			throw new ValidacionExcepcion("Ese email ya esta registrado");
 		}
 
@@ -99,14 +90,13 @@ public class PersonaService {
 	}
 
 	public void modificarArtista(Long id, String apodo,
-			List<Especialidad> especialidades) {
-		Artista artista = artistaRepository.findById(id)
-				.orElseThrow(() -> new EntidadNoEncontradaExcepcion(
-						"Artista no encontrado"));
+			List<Especialidad> especialidades) 
+	{
+		Artista artista = artistaRepository.findById(id).orElseThrow(() -> new EntidadNoEncontradaExcepcion("Artista no encontrado"));
 
-		if (especialidades == null || especialidades.isEmpty()) {
-			throw new ValidacionExcepcion(
-					"El artista debe tener al menos una especialidad");
+		if (especialidades == null || especialidades.isEmpty()) 
+		{
+			throw new ValidacionExcepcion("El artista debe tener al menos una especialidad");
 		}
 
 		artista.setApodo(apodo);
@@ -114,15 +104,12 @@ public class PersonaService {
 		artistaRepository.save(artista);
 	}
 
-	public void modificarCoordinacion(Long id, boolean senior,
-			LocalDate fechasenior) {
-		Coordinacion coordinacion = coordinacionRepository.findById(id)
-				.orElseThrow(() -> new EntidadNoEncontradaExcepcion(
-						"Coordinacion no encontrada"));
+	public void modificarCoordinacion(Long id, boolean senior,LocalDate fechasenior) 
+	{
+		Coordinacion coordinacion = coordinacionRepository.findById(id).orElseThrow(() -> new EntidadNoEncontradaExcepcion("Coordinacion no encontrada"));
 
 		if (senior && fechasenior == null) {
-			throw new ValidacionExcepcion(
-					"Si es senior debe indicar la fecha desde cuando");
+			throw new ValidacionExcepcion("Si es senior debe indicar la fecha desde cuando");
 		}
 
 		coordinacion.setSenior(senior);
@@ -131,15 +118,20 @@ public class PersonaService {
 	}
 
 	public Artista verFichaArtista(Long id) {
-		return artistaRepository.findById(id)
-				.orElseThrow(() -> new EntidadNoEncontradaExcepcion(
-						"Artista no encontrado"));
+		return artistaRepository.findById(id).orElseThrow(() -> new EntidadNoEncontradaExcepcion("Artista no encontrado"));
 	}
-	public Artista buscarArtistaPorUsuario(String nombreUsuario) {
-	    return artistaRepository.findByCredenciales_Nombre(nombreUsuario);
+	public Artista buscarArtistaPorUsuario(String nombreUsuario) 
+	{
+		 Artista artista = artistaRepository.findByCredenciales_Nombre(nombreUsuario);
+		    if (artista != null) 
+		    {		       
+		        artista.getNumeros().size();
+		    }
+		    return artista;
 	}
 
-	public List<Persona> listarPersonas() {
+	public List<Persona> listarPersonas() 
+	{
 	    return personaRepository.findByCredenciales_PerfilNot(Perfiles.ADMIN);
 	}
 
@@ -151,22 +143,25 @@ public class PersonaService {
 		return coordinacionRepository.findAll();
 	}
 
-	private void validarDatosPersonales(String nombre, String email,
-			String nacionalidad) {
-		if (nombre == null || nombre.isBlank()) {
+	private void validarDatosPersonales(String nombre, String email, String nacionalidad) {
+		if (nombre == null || nombre.isBlank()) 
+		{
 			throw new ValidacionExcepcion("El nombre no puede estar vacio");
 		}
-		if (email == null || email.isBlank()) {
+		if (email == null || email.isBlank()) 
+		{
 			throw new ValidacionExcepcion("El email no puede estar vacio");
 		}
-		if (nacionalidad == null || nacionalidad.isBlank()) {
-			throw new ValidacionExcepcion(
-					"La nacionalidad no puede estar vacia");
+		if (nacionalidad == null || nacionalidad.isBlank()) 
+		{
+			throw new ValidacionExcepcion("La nacionalidad no puede estar vacia");
 		}
-		if (personaRepository.findByEmail(email) != null) {
+		if (personaRepository.findByEmail(email) != null) 
+		{
 			throw new ValidacionExcepcion("Ese email ya esta registrado");
 		}
-		if (!nacionalidadService.esValida(nacionalidad)) {
+		if (!nacionalidadService.esValida(nacionalidad)) 
+		{
 			throw new ValidacionExcepcion("La nacionalidad no es valida");
 		}
 	}

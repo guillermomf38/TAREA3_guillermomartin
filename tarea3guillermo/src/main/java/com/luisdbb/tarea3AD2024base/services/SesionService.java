@@ -36,18 +36,18 @@ public class SesionService {
 		return usuarioActual == null;
 	}
 
-	public boolean isAdmin() {
-		return usuarioActual != null
-				&& usuarioActual.getPerfil() == Perfiles.ADMIN;
+	public boolean isAdmin() 
+	{
+		return usuarioActual != null && usuarioActual.getPerfil() == Perfiles.ADMIN;
 	}
 
-	public boolean isCoordinacion() {
-		return usuarioActual != null
-				&& usuarioActual.getPerfil() == Perfiles.COORDINACION;
+	public boolean isCoordinacion() 
+	{
+		return usuarioActual != null && usuarioActual.getPerfil() == Perfiles.COORDINACION;
 	}
 
-	public boolean isArtista() {
-		return usuarioActual != null
-				&& usuarioActual.getPerfil() == Perfiles.ARTISTA;
+	public boolean isArtista() 
+	{
+		return usuarioActual != null && usuarioActual.getPerfil() == Perfiles.ARTISTA;
 	}
 }

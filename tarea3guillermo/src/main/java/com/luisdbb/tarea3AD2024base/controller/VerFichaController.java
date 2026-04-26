@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.Artista;
+import com.luisdbb.tarea3AD2024base.modelo.Especialidad;
 import com.luisdbb.tarea3AD2024base.modelo.Numero;
 import com.luisdbb.tarea3AD2024base.services.PersonaService;
 import com.luisdbb.tarea3AD2024base.services.SesionService;
@@ -28,6 +29,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
 
@@ -48,7 +50,7 @@ public class VerFichaController implements Initializable {
     @FXML private Label lblEmail;
     @FXML private Label lblNacionalidad;
     @FXML private Label lblApodo;
-    @FXML private Label lblEspecialidades;
+    @FXML private ListView<Especialidad> lvEspecialidades;
     @FXML private TextArea taParticipaciones;
     @FXML private Button btnAtras;
 
@@ -67,19 +69,25 @@ public class VerFichaController implements Initializable {
         lblEmail.setText(artista.getEmail());
         lblNacionalidad.setText(artista.getNacionalidad());
         lblApodo.setText(artista.getApodo() != null ? artista.getApodo() : "-");
-        lblEspecialidades.setText(artista.getEspecialidades().toString());
+        lvEspecialidades.getItems().setAll(artista.getEspecialidades());
 
         StringBuilder sb = new StringBuilder();
-        for (Numero n : artista.getNumeros()) {
-            sb.append("Espectaculo: ")
-                    .append(n.getEspectaculo().getNombre())
-                    .append("\n")
-                    .append("  Numero: ").append(n.getNombre())
-                    .append(" - Orden: ").append(n.getOrden())
-                    .append("\n\n");
+        if (artista.getNumeros().isEmpty()) 
+        {
+            sb.append("Sin participaciones registradas");
+        } else 
+        {
+            for (Numero n : artista.getNumeros()) 
+            {
+                sb.append("────────────────────────────\n");
+                sb.append("Espectáculo ID: ").append(n.getEspectaculo().getId()).append("\n");
+                sb.append("Nombre Espectáculo: ").append(n.getEspectaculo().getNombre()).append("\n");
+                sb.append("Número ID: ").append(n.getId()).append("\n");
+                sb.append("Nombre Número: ").append(n.getNombre()).append("\n\n");
+            }
         }
-        taParticipaciones.setText(sb.isEmpty()
-                ? "Sin participaciones registradas" : sb.toString());
+
+        taParticipaciones.setText(sb.toString());
     }
 
     @FXML
