@@ -16,5 +16,4 @@ import com.luisdbb.tarea3AD2024base.modelo.Coordinacion;
 
 @Repository
 public interface CoordinacionRepository extends JpaRepository <Coordinacion, Long> {
-
 }
