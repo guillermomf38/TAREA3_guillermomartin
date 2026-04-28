@@ -113,8 +113,13 @@ public class ModificarPersonaController implements Initializable {
 	}
 
 	private void cargarPersonas() {
-		personas = personaService.listarPersonas();
-		lvPersonas.setItems(FXCollections.observableArrayList(personas.stream().map(p -> p.getId() + " - " + p.getNombre() + " ("+ p.getCredenciales().getPerfil() + ")").toList()));
+		   personas = personaService.listarPersonas();
+		    List<String> items = new ArrayList<>();
+		    for (Persona p : personas) {
+		        items.add(p.getId() + " - " +p.getNombre() + " (" +p.getCredenciales().getPerfil() + ")");
+		    }
+
+		    lvPersonas.setItems(FXCollections.observableArrayList(items));
 	}
 
 	@FXML

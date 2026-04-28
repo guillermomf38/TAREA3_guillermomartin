@@ -237,7 +237,7 @@ public class GestionarEspectaculoController implements Initializable {
 		for (Numero n : numeros) {
 			if (n.getArtistas().isEmpty()) 
 			{
-				mostrarError("El numero '" + n.getNombre()+ "' no tiene artistas asignados. "+ "Cada numero debe tener al menos 1 artista.");
+				mostrarError("El numero " + n.getNombre()+ " no tiene artistas asignados. "+ "Cada numero debe tener al menos 1 artista.");
 				return;
 			}
 		}
