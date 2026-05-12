@@ -37,9 +37,9 @@
                   <Font name="Britannic Bold" size="14.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="262.0" spacing="35.0">
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="262.0" spacing="25.0">
                <children>
-                  <Label text="ID">
+                  <Label alignment="CENTER" text="ID">
                      <font>
                         <Font size="10.0" />
                      </font></Label>
@@ -47,7 +47,7 @@
                      <font>
                         <Font size="10.0" />
                      </font></Label>
-                  <Label text="Fecha Inicio">
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="68.0" text="Fecha Inicio">
                      <font>
                         <Font size="10.0" />
                      </font></Label>

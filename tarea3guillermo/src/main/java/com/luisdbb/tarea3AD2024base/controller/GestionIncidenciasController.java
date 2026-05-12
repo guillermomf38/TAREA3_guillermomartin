@@ -103,7 +103,7 @@ public class GestionIncidenciasController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		ObservableList<String> tipos = FXCollections.observableArrayList();
-		tipos.add("-- Todos --");
+		tipos.add("--Todos--");
 		for (TipoIncidencia tipo : TipoIncidencia.values())
 			tipos.add(tipo.name());
 		cbFiltroTipo.setItems(tipos);

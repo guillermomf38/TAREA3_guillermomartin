@@ -35,6 +35,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
@@ -82,6 +83,12 @@ public class GestionarEspectaculoController implements Initializable {
 	private Button btnCrearNum;
 	@FXML
 	private Button btnGuardarNum;
+	
+	@FXML
+	private Label lblArtistasParaNum;
+	
+	@FXML
+	private ListView<String> lvListadoArtistasParaNum;
 
 	@FXML
 	private ListView<String> lvArtistas;

@@ -46,7 +46,7 @@
                 <Label prefWidth="110" style="-fx-font-weight: bold;" text="Nombre:">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Label>
-                <Label fx:id="lblNombre" prefHeight="16.0" prefWidth="134.0">
+                <Label fx:id="lblNombre" prefHeight="16.0" prefWidth="416.0">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Label>
             </HBox>

@@ -96,9 +96,9 @@
                   </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="314.0" prefHeight="76.0" prefWidth="200.0" spacing="70.0">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="314.0" prefHeight="76.0" prefWidth="200.0" spacing="60.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="230.0" text=" Registrar Incidencia">
+                  <Label prefHeight="27.0" prefWidth="240.0" text=" Registrar Incidencia">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>

@@ -47,7 +47,7 @@
 					</Label>
 					<TextField fx:id="txtNombre" />
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="55.0">
+				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
 					<Label text="Contraseña:">
 						<font>
 							<Font name="Arial" size="20.0" />
@@ -55,7 +55,7 @@
 					</Label>
 					<PasswordField fx:id="psPassword" />
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="65.0">
+				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="90.0">
 					<Label text="Usuario:">
 						<font>
 							<Font name="Arial" size="20.0" />
@@ -63,7 +63,7 @@
 					</Label>
 					<TextField fx:id="txtUsuario" />
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="110.0">
+				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="105.0">
 					<Label text="Email:">
 						<font>
 							<Font name="Arial" size="20.0" />
@@ -71,7 +71,7 @@
 					</Label>
 					<TextField fx:id="txtemail" />
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="45.0">
 					<Label text="Nacionalidad:">
 						<font>
 							<Font name="Arial" size="20.0" />

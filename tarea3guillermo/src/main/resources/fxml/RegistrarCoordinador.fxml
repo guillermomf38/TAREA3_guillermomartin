@@ -13,16 +13,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0"
-	xmlns="http://javafx.com/javafx/23.0.1"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.luisdbb.tarea3AD2024base.controller.RegistrarCoordinadorController">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.RegistrarCoordinadorController">
 	<top>
-		<HBox alignment="CENTER" prefHeight="110.0" prefWidth="1000.0"
-			spacing="100.0" style="-fx-background-color: #E57373;"
-			BorderPane.alignment="CENTER">
-			<Button fx:id="btnIrAtras" onAction="#atras"
-				style="-fx-background-color: white;" text="Atrás">
+		<HBox alignment="CENTER" prefHeight="110.0" prefWidth="1000.0" spacing="100.0" style="-fx-background-color: #E57373;" BorderPane.alignment="CENTER">
+			<Button fx:id="btnIrAtras" onAction="#atras" style="-fx-background-color: white;" text="Atrás">
 				<font>
 					<Font name="Arial" size="13.0" />
 				</font>
@@ -42,11 +36,9 @@
 	</top>
 
 	<left>
-		<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="500.0"
-			style="-fx-background-color: lightskyblue;"
-			BorderPane.alignment="CENTER">
+		<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: lightskyblue;" BorderPane.alignment="CENTER">
 			<children>
-				<HBox alignment="CENTER" prefHeight="100.0" spacing="85.0">
+				<HBox alignment="CENTER" prefHeight="100.0" spacing="90.0">
 					<Label text="Nombre:">
 						<font>
 							<Font name="Arial" size="20.0" />
@@ -54,7 +46,7 @@
 					</Label>
 					<TextField fx:id="txtNombre" />
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="100.0" spacing="55.0">
+				<HBox alignment="CENTER" prefHeight="100.0" spacing="60.0">
 					<Label text="Contraseña:">
 						<font>
 							<Font name="Arial" size="20.0" />
@@ -62,7 +54,7 @@
 					</Label>
 					<PasswordField fx:id="psPassword" />
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="100.0" spacing="65.0">
+				<HBox alignment="CENTER" prefHeight="100.0" spacing="90.0">
 					<Label text="Usuario:">
 						<font>
 							<Font name="Arial" size="20.0" />
@@ -78,7 +70,7 @@
 					</Label>
 					<TextField fx:id="txtemail" />
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="100.0" spacing="40.0">
+				<HBox alignment="CENTER" prefHeight="100.0" spacing="50.0">
 					<Label text="Nacionalidad:">
 						<font>
 							<Font name="Arial" size="20.0" />
@@ -91,9 +83,7 @@
 	</left>
 
 	<right>
-		<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="500.0"
-			spacing="30.0" style="-fx-background-color: lightskyblue;"
-			BorderPane.alignment="CENTER">
+		<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="500.0" spacing="30.0" style="-fx-background-color: lightskyblue;" BorderPane.alignment="CENTER">
 			<children>
 				<Label text="Datos del Coordinador">
 					<font>
@@ -110,8 +100,7 @@
 							<Font name="Arial" size="18.0" />
 						</font>
 					</Label>
-					<CheckBox fx:id="ckSenior" mnemonicParsing="false"
-						onAction="#toggleFecha" />
+					<CheckBox fx:id="ckSenior" mnemonicParsing="false" onAction="#toggleFecha" />
 				</HBox>
 
 				<HBox alignment="CENTER" prefHeight="100.0" spacing="50.0">
@@ -127,18 +116,13 @@
 	</right>
 
 	<bottom>
-		<HBox alignment="CENTER" prefHeight="100.0" spacing="100.0"
-			style="-fx-background-color: lightskyblue;"
-			BorderPane.alignment="CENTER">
-			<Button fx:id="btnGuardar" onAction="#guardar"
-				style="-fx-background-color: white;" text="Guardar">
+		<HBox alignment="CENTER" prefHeight="100.0" spacing="100.0" style="-fx-background-color: lightskyblue;" BorderPane.alignment="CENTER">
+			<Button fx:id="btnGuardar" onAction="#guardar" style="-fx-background-color: white;" text="Guardar">
 				<font>
 					<Font size="14.0" />
 				</font>
 			</Button>
-			<Button fx:id="btnReiniciar" onAction="#reiniciar"
-				style="-fx-background-color: #E57373; -fx-text-fill: white;"
-				text="Reiniciar">
+			<Button fx:id="btnReiniciar" onAction="#reiniciar" style="-fx-background-color: #E57373; -fx-text-fill: white;" text="Reiniciar">
 				<font>
 					<Font size="14.0" />
 				</font>

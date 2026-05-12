@@ -56,9 +56,6 @@ public class HistorialOperacionesController implements Initializable {
 		private Button btnBuscar;
 
 		@FXML
-		private Button btnMostrar;
-
-		@FXML
 		private Button btnLimpiar;
 
 		@FXML
@@ -84,7 +81,7 @@ public class HistorialOperacionesController implements Initializable {
 
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			mostrarTodos();
+		
 
 		}
 
@@ -111,15 +108,9 @@ public class HistorialOperacionesController implements Initializable {
 			mostrarResultados(resultados);
 		}
 
-		@FXML
-		private void mostrarTodos(ActionEvent event) {
-			mostrarTodos();
-		}
+	
 
-		private void mostrarTodos() {
-			List<LogOperacion> todos = logDb4oService.total();
-			mostrarResultados(todos);
-		}
+		
 
 		@FXML
 		private void limpiarFiltros(ActionEvent event) {
@@ -129,7 +120,7 @@ public class HistorialOperacionesController implements Initializable {
 			ckBorrado.setSelected(true);
 			dpDesde.setValue(null);
 			dpHasta.setValue(null);
-			mostrarTodos();
+		
 		}
 
 		private void mostrarResultados(List<LogOperacion> logs) {
