@@ -10,6 +10,8 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,23 +72,32 @@ public class VerFichaController implements Initializable {
         lblNacionalidad.setText(artista.getNacionalidad());
         lblApodo.setText(artista.getApodo() != null ? artista.getApodo() : "-");
         lvEspecialidades.getItems().setAll(artista.getEspecialidades());
+        
+        List<Numero> numerosOrdenados = new ArrayList<>(artista.getNumeros());
+
+        numerosOrdenados.sort((a, b) -> {
+            
+            if (a.getEspectaculo().getFechaini().equals(b.getEspectaculo().getFechaini())) 
+            {
+                
+                return a.getOrden() - b.getOrden();
+            }
+
+            return a.getEspectaculo().getFechaini().compareTo(b.getEspectaculo().getFechaini());
+        });
 
         StringBuilder sb = new StringBuilder();
-        if (artista.getNumeros().isEmpty()) 
-        {
+        if (numerosOrdenados.isEmpty()) {
             sb.append("Sin participaciones registradas");
-        } else 
-        {
-            for (Numero n : artista.getNumeros()) 
-            {
+        } else {
+            for (Numero n : numerosOrdenados) {
                 sb.append("────────────────────────────\n");
                 sb.append("Espectáculo ID: ").append(n.getEspectaculo().getId()).append("\n");
-                sb.append("Nombre Espectáculo: ").append(n.getEspectaculo().getNombre()).append("\n");
+                sb.append("Espectáculo: ").append(n.getEspectaculo().getNombre()).append("\n");
                 sb.append("Número ID: ").append(n.getId()).append("\n");
-                sb.append("Nombre Número: ").append(n.getNombre()).append("\n\n");
+                sb.append("Número: ").append(n.getNombre()).append("\n\n");
             }
         }
-
         taParticipaciones.setText(sb.toString());
     }
 

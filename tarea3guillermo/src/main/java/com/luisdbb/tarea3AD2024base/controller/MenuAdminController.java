@@ -37,6 +37,12 @@ public class MenuAdminController implements Initializable {
 	private Button btnIrBuscar;
 	
 	@FXML
+	private Button btnHistorial;
+	@FXML
+	private Button btnIrRegistrar;
+	@FXML
+	private Button btnIrGestion;
+	@FXML
 	private Button btnCerrarSesion;
 	@Lazy
 	@Autowired
@@ -63,6 +69,19 @@ public class MenuAdminController implements Initializable {
 		stageManager.switchScene(FxmlView.BUSCAR_ESPECTACULO);
 	}
 	
+	@FXML
+	private void consultarHistorial(ActionEvent event) {
+		stageManager.switchScene(FxmlView.HISTORIAL_OPERACIONES);
+	}
+	@FXML
+	private void registrarIncidencia(ActionEvent event) {
+	    stageManager.switchScene(FxmlView.REGISTRAR_INCIDENCIA);
+	}
+
+	@FXML
+	private void gestionIncidencias(ActionEvent event) {
+	    stageManager.switchScene(FxmlView.GESTION_INCIDENCIAS);
+	}
 
 	@FXML
 	private void cerrarSesion(ActionEvent event) throws IOException {

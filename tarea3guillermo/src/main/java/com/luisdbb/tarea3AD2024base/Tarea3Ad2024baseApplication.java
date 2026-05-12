@@ -3,6 +3,7 @@ package com.luisdbb.tarea3AD2024base;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import com.luisdbb.tarea3AD2024base.config.StageManager;

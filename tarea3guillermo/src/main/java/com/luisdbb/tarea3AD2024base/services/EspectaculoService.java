@@ -20,6 +20,7 @@ import com.luisdbb.tarea3AD2024base.modelo.Artista;
 import com.luisdbb.tarea3AD2024base.modelo.Coordinacion;
 import com.luisdbb.tarea3AD2024base.modelo.Espectaculo;
 import com.luisdbb.tarea3AD2024base.modelo.Numero;
+import com.luisdbb.tarea3AD2024base.modelo.TipoOperacion;
 import com.luisdbb.tarea3AD2024base.repositorios.ArtistaRepository;
 import com.luisdbb.tarea3AD2024base.repositorios.CoordinacionRepository;
 import com.luisdbb.tarea3AD2024base.repositorios.EspectaculoRepository;
@@ -39,6 +40,12 @@ public class EspectaculoService {
 
 	@Autowired
 	private ArtistaRepository artistaRepository;
+	
+	@Autowired
+	private LogDb4oService logdb4oService;
+	
+	@Autowired
+	private SesionService sesionService;
 
 	public List<Espectaculo> listarEspectaculos() 
 	{
@@ -54,7 +61,12 @@ public class EspectaculoService {
 	{
 		validarEspectaculo(nombre, fechaini, fechafin, null);
 		Espectaculo espectaculo = new Espectaculo(nombre, fechaini, fechafin,coordinador);
-		return espectaculoRepository.save(espectaculo);
+		Espectaculo guardado = espectaculoRepository.save(espectaculo);
+		
+		logdb4oService.registrarOperacion(sesionService.getUsuarioActual().getNombre(), TipoOperacion.NUEVO, 
+				"Se ha insertado un nuevo Espectaculo de id " + guardado.getId());
+		
+		return guardado;
 	}
 
 	public Espectaculo modificarEspectaculo(Long id, String nombre,LocalDate fechaini, LocalDate fechafin, Coordinacion coordinador)
@@ -66,7 +78,12 @@ public class EspectaculoService {
 		espectaculo.setFechaini(fechaini);
 		espectaculo.setFechafin(fechafin);
 		espectaculo.setCoordinador(coordinador);
-		return espectaculoRepository.save(espectaculo);
+		Espectaculo guardado = espectaculoRepository.save(espectaculo);
+		
+		logdb4oService.registrarOperacion(sesionService.getUsuarioActual().getNombre(), TipoOperacion.ACTUALIZACION,
+		        "Se ha actualizado el Espectaculo de id " + id);
+		
+		return guardado;
 	}
 
 	public Numero crearNumero(String ordenTexto, String nombre,String duracionTexto, Espectaculo espectaculo) {
@@ -74,7 +91,12 @@ public class EspectaculoService {
 		double duracion = validarDuracion(duracionTexto);
 		validarNombreNumero(nombre);
 		Numero numero = new Numero(orden, nombre, duracion, espectaculo);
-		return numeroRepository.save(numero);
+		Numero guardado = numeroRepository.save(numero);
+		
+		logdb4oService.registrarOperacion(sesionService.getUsuarioActual().getNombre(), TipoOperacion.NUEVO,
+		        "Se ha insertado un nuevo Numero de id " + guardado.getId() + " en Espectaculo id " + espectaculo.getId());
+		
+		return guardado;
 	}
 
 	public Numero modificarNumero(Long id, String ordenTexto, String nombre,String duracionTexto) {
@@ -85,7 +107,12 @@ public class EspectaculoService {
 		numero.setOrden(orden);
 		numero.setNombre(nombre);
 		numero.setDuracion(duracion);
-		return numeroRepository.save(numero);
+		Numero guardado = numeroRepository.save(numero);
+		
+		logdb4oService.registrarOperacion(sesionService.getUsuarioActual().getNombre(), TipoOperacion.ACTUALIZACION,
+		        "Se ha actualizado el Numero de id " + id);
+		
+		return guardado;
 	}
 
 	public Numero asignarArtistas(Long idNumero, List<Artista> artistas) {

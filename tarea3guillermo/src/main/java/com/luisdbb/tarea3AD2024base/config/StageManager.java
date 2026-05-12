@@ -1,4 +1,4 @@
-package com.luisdbb.tarea3AD2024base.config;
+	package com.luisdbb.tarea3AD2024base.config;
 
 import static org.slf4j.LoggerFactory.getLogger;
 

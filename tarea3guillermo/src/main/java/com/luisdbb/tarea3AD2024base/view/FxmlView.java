@@ -124,6 +124,25 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/VerFicha.fxml";
 		}
+	},
+	
+	HISTORIAL_OPERACIONES {
+	    @Override public String getTitle() {
+	        return getStringFromResourceBundle("historialOperaciones.title"); }
+	    @Override public String getFxmlFile() {
+	        return "/fxml/HistorialOperaciones.fxml"; }
+	},
+	REGISTRAR_INCIDENCIA {
+	    @Override public String getTitle() {
+	        return getStringFromResourceBundle("registrarIncidencia.title"); }
+	    @Override public String getFxmlFile() {
+	        return "/fxml/RegistrarIncidencia.fxml"; }
+	},
+	GESTION_INCIDENCIAS {
+	    @Override public String getTitle() {
+	        return getStringFromResourceBundle("gestionIncidencias.title"); }
+	    @Override public String getFxmlFile() {
+	        return "/fxml/GestionIncidencias.fxml"; }
 	};
 
 	public abstract String getTitle();

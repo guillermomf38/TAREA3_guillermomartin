@@ -34,6 +34,11 @@ public class MenuCoordinadorController implements Initializable {
 	@FXML
 	private Button btnIrBuscar;
 	@FXML
+	private Button btnIrRegistrar;
+	@FXML
+	private Button btnIrGestionInci;
+	
+	@FXML
 	private Button btnCerrarSesion;
 	@Lazy
 	@Autowired
@@ -50,7 +55,15 @@ public class MenuCoordinadorController implements Initializable {
 	private void irBuscar(ActionEvent event){
 		stageManager.switchScene(FxmlView.BUSCAR_ESPECTACULO);
 	}
+	@FXML
+	private void registrarIncidencia(ActionEvent event) {
+	    stageManager.switchScene(FxmlView.REGISTRAR_INCIDENCIA);
+	}
 
+	@FXML
+	private void gestionIncidencias(ActionEvent event) {
+	    stageManager.switchScene(FxmlView.GESTION_INCIDENCIAS);
+	}
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 	}

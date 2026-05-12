@@ -33,6 +33,12 @@ public class MenuArtistaController implements Initializable {
 	private Button btnIrBuscar;
 	@FXML
 	private Button btnVerFicha;
+	
+	@FXML
+	private Button btnIrRegistrar;
+	@FXML
+	private Button btnIrGestion;
+	
 	@FXML
 	private Button btnCerrarSesion;
 	
@@ -52,6 +58,17 @@ public class MenuArtistaController implements Initializable {
 	private void irVerFicha(ActionEvent event){
 		stageManager.switchScene(FxmlView.VER_FICHA);
 	}
+	
+	@FXML
+	private void registrarIncidencia(ActionEvent event) {
+	    stageManager.switchScene(FxmlView.REGISTRAR_INCIDENCIA);
+	}
+
+	@FXML
+	private void gestionIncidencias(ActionEvent event) {
+	    stageManager.switchScene(FxmlView.GESTION_INCIDENCIAS);
+	}
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 	}

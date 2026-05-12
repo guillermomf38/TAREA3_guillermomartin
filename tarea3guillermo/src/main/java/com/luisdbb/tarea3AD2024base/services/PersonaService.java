@@ -1,4 +1,4 @@
-/**
+ /**
  *Clase PersonaService.java
  * 
  *@author Guillermo Martin Fueyo
@@ -21,6 +21,7 @@ import com.luisdbb.tarea3AD2024base.modelo.Credenciales;
 import com.luisdbb.tarea3AD2024base.modelo.Especialidad;
 import com.luisdbb.tarea3AD2024base.modelo.Perfiles;
 import com.luisdbb.tarea3AD2024base.modelo.Persona;
+import com.luisdbb.tarea3AD2024base.modelo.TipoOperacion;
 import com.luisdbb.tarea3AD2024base.repositorios.ArtistaRepository;
 import com.luisdbb.tarea3AD2024base.repositorios.CoordinacionRepository;
 import com.luisdbb.tarea3AD2024base.repositorios.PersonaRepository;
@@ -41,6 +42,12 @@ public class PersonaService {
 
 	@Autowired
 	private NacionalidadService nacionalidadService;
+	
+	@Autowired
+	private LogDb4oService logdb4oService;
+	
+	@Autowired
+	private SesionService sesionService;
 
 	public void registrarArtista(String nombre, String email,String nacionalidad, String credNombre, String credPassword,String apodo, List<Especialidad> especialidades) 
 	{
@@ -56,6 +63,8 @@ public class PersonaService {
 
 		Artista artista = new Artista(email, nombre, nacionalidad, credenciales,apodo, especialidades);
 		artistaRepository.save(artista);
+		
+		logdb4oService.registrarOperacion(credNombre.toLowerCase(), TipoOperacion.NUEVO, "Se ha insertado un nuevo Artista de id " + artista.getId());
 	}
 
 	public void registrarCoordinacion(String nombre, String email,String nacionalidad, String credNombre, String credPassword, boolean senior, LocalDate fechasenior) 
@@ -72,6 +81,8 @@ public class PersonaService {
 
 		Coordinacion coordinacion = new Coordinacion(email, nombre,nacionalidad, credenciales, senior,senior ? fechasenior : null);
 		coordinacionRepository.save(coordinacion);
+		
+		logdb4oService.registrarOperacion(credNombre.toLowerCase(), TipoOperacion.NUEVO, "Se ha insertado un nuevo Coordinador de id " + coordinacion.getId());
 	}
 
 	public void modificarDatosPersonales(Long id, String nombre, String email,String nacionalidad) 
@@ -87,6 +98,9 @@ public class PersonaService {
 		persona.setEmail(email);
 		persona.setNacionalidad(nacionalidad);
 		personaRepository.save(persona);
+		
+		logdb4oService.registrarOperacion(sesionService.getUsuarioActual().getNombre(), TipoOperacion.ACTUALIZACION, "Se ha actualizado la información del id " + id + " de Persona");
+
 	}
 
 	public void modificarArtista(Long id, String apodo,
@@ -102,6 +116,8 @@ public class PersonaService {
 		artista.setApodo(apodo);
 		artista.setEspecialidades(especialidades);
 		artistaRepository.save(artista);
+		
+		logdb4oService.registrarOperacion(sesionService.getUsuarioActual().getNombre(), TipoOperacion.ACTUALIZACION, "Se ha actualizado el Artista de id " + id);
 	}
 
 	public void modificarCoordinacion(Long id, boolean senior,LocalDate fechasenior) 
@@ -115,6 +131,8 @@ public class PersonaService {
 		coordinacion.setSenior(senior);
 		coordinacion.setFechasenior(senior ? fechasenior : null);
 		coordinacionRepository.save(coordinacion);
+		
+		logdb4oService.registrarOperacion(sesionService.getUsuarioActual().getNombre(), TipoOperacion.ACTUALIZACION, "Se ha actualizado el Coordinador de id " + id);
 	}
 
 	public Artista verFichaArtista(Long id) {
@@ -128,6 +146,10 @@ public class PersonaService {
 		        artista.getNumeros().size();
 		    }
 		    return artista;
+	}
+	
+	public Persona buscarPersonaPorUsuario(String nombreUsuario) {
+	    return personaRepository.findByCredenciales_Nombre(nombreUsuario);
 	}
 
 	public List<Persona> listarPersonas() 
@@ -151,6 +173,9 @@ public class PersonaService {
 		if (email == null || email.isBlank()) 
 		{
 			throw new ValidacionExcepcion("El email no puede estar vacio");
+		}
+		if (email.contains(" ")) {
+		    throw new ValidacionExcepcion("El email no puede contener espacios");
 		}
 		if (nacionalidad == null || nacionalidad.isBlank()) 
 		{

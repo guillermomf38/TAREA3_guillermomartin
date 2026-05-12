@@ -37,7 +37,10 @@ public class MenuRegistrarPersonaController implements Initializable {
 
     @FXML
     private Button btnCerrarSesion;
-
+    
+    @FXML
+    private Button btnAtras;
+    
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -55,6 +58,11 @@ public class MenuRegistrarPersonaController implements Initializable {
     @FXML
     private void irRegistrarCoordinador(ActionEvent event)  {
         stageManager.switchScene(FxmlView.REGISTRAR_COORDINADOR);
+    }
+    
+    @FXML
+    private void atras(ActionEvent event)  {
+        stageManager.switchScene(FxmlView.MENU_ADMIN);
     }
 
     @Override

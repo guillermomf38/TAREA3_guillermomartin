@@ -8,6 +8,7 @@
 package com.luisdbb.tarea3AD2024base.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.luisdbb.tarea3AD2024base.excepciones.ValidacionExcepcion;
@@ -23,6 +24,12 @@ public class CredencialesService {
 
 	@Autowired
 	private SesionService sesionService;
+	
+	@Value("${admin.nombre}")
+    private String adminNombre;
+
+    @Value("${admin.password}")
+    private String adminPassword;
 
 	public void login(String nombre, String password) {
 
@@ -34,6 +41,15 @@ public class CredencialesService {
 		{
 			throw new ValidacionExcepcion("La contrasena no puede estar vacia");
 		}
+		
+		 if (nombre.equals(adminNombre) && password.equals(adminPassword)) {
+	            Credenciales adminCred = new Credenciales();
+	            adminCred.setNombre(adminNombre);
+	            adminCred.setPassword(adminPassword);
+	            adminCred.setPerfil(Perfiles.ADMIN);
+	            sesionService.iniciarSesion(adminCred);
+	            return;
+	        }
 
 		Credenciales credenciales = credencialesRepository.findByNombreAndPassword(nombre, password);
 

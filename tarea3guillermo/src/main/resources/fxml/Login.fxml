@@ -37,7 +37,28 @@
                   <Font name="Britannic Bold" size="14.0" />
                </font>
             </Label>
-            <ListView fx:id="lvEspectaculos" prefHeight="214.0" prefWidth="246.0">
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="262.0" spacing="35.0">
+               <children>
+                  <Label text="ID">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
+                  <Label text="Nombre">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
+                  <Label text="Fecha Inicio">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
+                  <Label text="Fecha Fin">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ListView fx:id="lvEspectaculos" prefHeight="226.0" prefWidth="258.0">
                <VBox.margin>
                   <Insets left="5.0" />
                </VBox.margin>
