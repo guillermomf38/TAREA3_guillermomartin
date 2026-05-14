@@ -8,10 +8,7 @@
 package com.luisdbb.tarea3AD2024base.services;
 
 import java.time.LocalDateTime;
-
 import java.util.List;
-
-
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,7 +23,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
-
 @Service
 public class IncidenciaService {
 	  private EntityManagerFactory emf;
