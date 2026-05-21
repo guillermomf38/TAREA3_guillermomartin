@@ -121,42 +121,49 @@ public class RegistrarIncidenciaController  implements Initializable{
 	        cbNumero.getSelectionModel().selectFirst();
 	    }
 	
-		@FXML
-		private void registrar(ActionEvent event) {
-			try {
-				TipoIncidencia tipo = TipoIncidencia.valueOf(cbTipo.getSelectionModel().getSelectedItem());
+	@FXML
+	private void registrar() {
+	    try {
+	        TipoIncidencia tipo = TipoIncidencia.valueOf(
+	                cbTipo.getSelectionModel().getSelectedItem());
 
-				
-				String usuarioActual = sesionService.getUsuarioActual().getNombre();
-				
-				Persona persona = personaService.buscarPersonaPorUsuario(usuarioActual);
-				Long idPersonaReporta = persona.getId();
+	        String usuarioActual = sesionService.getUsuarioActual().getNombre();
 
-				
-				Long idEspectaculo = null;
-				int idxEsp = cbEspectaculo.getSelectionModel().getSelectedIndex();
-				if (idxEsp > 0) 
-				{
-					idEspectaculo = espectaculos.get(idxEsp - 1).getId();
-				}
+	    
+	        Long idPersonaReporta = null;
+	        Persona persona = personaService.buscarPersonaPorUsuario(usuarioActual);
+	        if (persona != null) {
+	            idPersonaReporta = persona.getId();
+	        } else {
+	            idPersonaReporta = 0L; 
+	        }
 
-				
-				Long idNumero = null;
-				int idxNum = cbNumero.getSelectionModel().getSelectedIndex();
-				if (idxNum > 0 && numeros != null) 
-				{
-					idNumero = numeros.get(idxNum - 1).getId();
-				}
+	        Long idEspectaculo = null;
+	        int idxEsp = cbEspectaculo.getSelectionModel().getSelectedIndex();
+	        if (idxEsp > 0) {
+	            idEspectaculo = espectaculos.get(idxEsp - 1).getId();
+	        }
 
-				incidenciaService.registrarIncidencia(tipo, taDescripcion.getText(), idPersonaReporta, idEspectaculo, idNumero);
+	        Long idNumero = null;
+	        int idxNum = cbNumero.getSelectionModel().getSelectedIndex();
+	        if (idxNum > 0 && numeros != null) {
+	            idNumero = numeros.get(idxNum - 1).getId();
+	        }
 
-				mostrarInfo("Incidencia registrada correctamente");
-				taDescripcion.clear();
+	        incidenciaService.registrarIncidencia(
+	                tipo,
+	                taDescripcion.getText(),
+	                idPersonaReporta,
+	                idEspectaculo,
+	                idNumero);
 
-			} catch (ValidacionExcepcion e) {
-				mostrarError(e.getMessage());
-			}
-		}
+	        mostrarInfo("Incidencia registrada correctamente");
+	        taDescripcion.clear();
+
+	    } catch (ValidacionExcepcion e) {
+	        mostrarError(e.getMessage());
+	    }
+	}
 		
 		@FXML
 		private void atras(ActionEvent event) {

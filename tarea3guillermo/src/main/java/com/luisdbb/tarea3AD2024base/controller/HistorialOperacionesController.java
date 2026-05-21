@@ -29,6 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -88,24 +89,30 @@ public class HistorialOperacionesController implements Initializable {
 		@FXML
 		private void buscar(ActionEvent event) {
 
-			List<TipoOperacion> tipos = new ArrayList<>();
-			if (ckNuevo.isSelected()) {
-				tipos.add(TipoOperacion.NUEVO);
-			}
+			if (!ckNuevo.isSelected() && !ckActualizacion.isSelected()
+		            && !ckBorrado.isSelected()) {
+		        mostrarError("Debes seleccionar al menos un tipo de operacion");
+		        return;
+		    }
+		  
+		    if (txtUsuarioFiltro.getText().isBlank()) {
+		        mostrarError("Debes introducir un nombre de usuario para buscar");
+		        return;
+		    }
 
-			if (ckActualizacion.isSelected()) {
-				tipos.add(TipoOperacion.ACTUALIZACION);
-			}
-			if (ckBorrado.isSelected()) {
-				tipos.add(TipoOperacion.BORRADO);
-			}
+		    List<TipoOperacion> tipos = new ArrayList<>();
+		    if (ckNuevo.isSelected()) tipos.add(TipoOperacion.NUEVO);
+		    if (ckActualizacion.isSelected()) tipos.add(TipoOperacion.ACTUALIZACION);
+		    if (ckBorrado.isSelected()) tipos.add(TipoOperacion.BORRADO);
 
-			 String desde = dpDesde.getValue() != null ? dpDesde.getValue() + " 00:00:00" : null;
-			    String hasta = dpHasta.getValue() != null ? dpHasta.getValue() + " 23:59:59" : null;
-			    
-			List<LogOperacion> resultados = logDb4oService.consultarHistorial(txtUsuarioFiltro.getText(), tipos, desde, hasta);
+		    String desde = dpDesde.getValue() != null
+		            ? dpDesde.getValue() + " 00:00:00" : null;
+		    String hasta = dpHasta.getValue() != null
+		            ? dpHasta.getValue() + " 23:59:59" : null;
 
-			mostrarResultados(resultados);
+		    List<LogOperacion> resultados = logDb4oService.consultarHistorial(
+		            txtUsuarioFiltro.getText(), tipos, desde, hasta);
+		    mostrarResultados(resultados);
 		}
 
 	
@@ -120,7 +127,8 @@ public class HistorialOperacionesController implements Initializable {
 			ckBorrado.setSelected(true);
 			dpDesde.setValue(null);
 			dpHasta.setValue(null);
-		
+			lvResultados.getItems().clear();
+		    lblTotal.setText("Total: 0 registros");
 		}
 
 		private void mostrarResultados(List<LogOperacion> logs) {
@@ -138,5 +146,13 @@ public class HistorialOperacionesController implements Initializable {
 		private void atras(ActionEvent event) {
 			stageManager.switchScene(FxmlView.MENU_ADMIN);
 		}
+		
+		 private void mostrarError(String mensaje) {
+		        Alert alert = new Alert(Alert.AlertType.ERROR);
+		        alert.setTitle("Error");
+		        alert.setHeaderText(null);
+		        alert.setContentText(mensaje);
+		        alert.showAndWait();
+		    }
 
 	}

@@ -91,7 +91,7 @@ public class IncidenciaService {
 			}
 			if (incidencia.isResuelta()) 
 			{
-				throw new ValidacionExcepcion("Esta incidencia ya está resuelta");
+				throw new ValidacionExcepcion("Esta incidencia ya esta resuelta");
 			}
 
 

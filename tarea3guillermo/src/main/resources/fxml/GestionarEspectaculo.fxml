@@ -77,12 +77,13 @@
                 <ComboBox fx:id="cbCoordinador" prefWidth="230.0" />
             </HBox>
 
-          
             <HBox alignment="CENTER" spacing="10.0">
+        
                 <Button fx:id="btnCrearEsp" onAction="#crearEspectaculo" prefWidth="150.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Crear Espectáculo">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Button>
-                <Button fx:id="btnGuardarEsp" disable="true" onAction="#guardarEspectaculo" prefWidth="150.0" style="-fx-background-color: white;" text="Modificar Cambios">
+            
+                <Button fx:id="btnGuardarEsp" disable="true" onAction="#guardarEspectaculo" prefWidth="150.0" style="-fx-background-color: white;" text="Guardar Cambios">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Button>
                 <Button fx:id="btnLimpiar" onAction="#limpiarEspectaculo" prefWidth="70.0" style="-fx-background-color: #E57373; -fx-text-fill: white;" text="Limpiar">
@@ -97,33 +98,11 @@
 
             <ListView fx:id="lvNumeros" prefHeight="150.0" prefWidth="340.0" />
 
-            <HBox alignment="CENTER" spacing="10.0">
-                <Button fx:id="btnNuevoNum" onAction="#nuevoNumero" prefWidth="130.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Nuevo Número">
-                    <font><Font name="Arial" size="13.0" /></font>
-                </Button>
-            </HBox>
-         <HBox>
-            <VBox.margin>
-               <Insets />
-            </VBox.margin>
-            <children>
-               <Label alignment="TOP_LEFT" prefHeight="21.0" prefWidth="284.0" text="Listado de artistas asignados para el número:">
-                  <font>
-                     <Font name="System Bold" size="13.0" />
-                  </font>
-               </Label>
-               <Label fx:id="lblArtistasParaNum" prefHeight="21.0" prefWidth="57.0">
-                  <font>
-                     <Font size="13.0" />
-                  </font>
-               </Label>
-            </children>
-         </HBox>
-         <ListView fx:id="lvListadoArtistasParaNum" prefHeight="128.0" prefWidth="389.0">
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-         </ListView>
+           
+            <Label style="-fx-font-weight: bold;" text="Artistas del número seleccionado:">
+                <font><Font name="System Bold" size="13.0" /></font>
+            </Label>
+            <ListView fx:id="lvListadoArtistasParaNum" prefHeight="100.0" prefWidth="340.0" />
 
         </VBox>
     </center>
@@ -143,7 +122,7 @@
                 <TextField fx:id="txtNombreNum" prefWidth="200.0" />
             </HBox>
 
-           
+            
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                 <Label prefWidth="80" text="Orden:">
                     <font><Font name="Arial" size="13.0" /></font>
@@ -158,24 +137,29 @@
                 <TextField fx:id="txtDuracion" prefWidth="200.0" />
             </HBox>
 
-           
+          
             <HBox alignment="CENTER" spacing="10.0">
-                <Button fx:id="btnCrearNum" onAction="#crearNumero" prefWidth="140.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Crear Número">
+                <Button fx:id="btnCrearNum" disable="true" onAction="#crearNumero" prefWidth="140.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Añadir Número">
                     <font><Font name="Arial" size="13.0" /></font>
                 </Button>
-                <Button fx:id="btnGuardarNum" disable="true" onAction="#guardarNumero" prefWidth="140.0" style="-fx-background-color: white;" text="Modificar Cambios">
-                    <font><Font name="Arial" size="13.0" /></font>
-                </Button>
+                <Button fx:id="btnModificarNum" onAction="#modificarNumero" prefWidth="150.0" style="-fx-background-color: white;" text="Modificar Número">
+    <font><Font name="Arial" size="13.0" /></font>
+</Button>
             </HBox>
+<Button fx:id="btnBorrarNum" onAction="#borrarNumero" prefWidth="150.0" style="-fx-background-color: #E57373; -fx-text-fill: white;" text="Borrar Número">
+ <font>
+               <Font name="Arial" size="13.0" />
+            </font>
+</Button>
 
-            <Label style="-fx-font-weight: bold;" text="Artistas para asignar:">
-                <font><Font name="Arial" size="15.0" /></font>
+            <Label style="-fx-font-weight: bold;" text="Artistas:">
+                <font><Font name="Arial" size="13.0" /></font>
                 <VBox.margin><Insets top="10.0" /></VBox.margin>
             </Label>
 
             <ListView fx:id="lvArtistas" prefHeight="200.0" prefWidth="290.0" />
 
-            <Button fx:id="btnAsignarArtistas" onAction="#asignarArtistas" prefWidth="200.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Asignar Artistas">
+            <Button fx:id="btnAsignarArtistas" onAction="#asignarArtistas" prefWidth="200.0" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Asignar Artistas al Número">
                 <font><Font name="Arial" size="13.0" /></font>
             </Button>
 

@@ -187,38 +187,52 @@ public class GestionIncidenciasController implements Initializable {
 	}
 
 	@FXML
-	private void resolver(ActionEvent event) {
-		if (incidenciaSeleccionada == null)
-		{
-			mostrarError("Selecciona una incidencia primero");
-			return;
-		}
-		if (incidenciaSeleccionada.isResuelta())
-		{
-			mostrarError("Esta incidencia ya esta resuelta");
-			return;
-		}
-		try {
-			String usuarioActual = sesionService.getUsuarioActual().getNombre();
-			Persona persona = personaService.buscarPersonaPorUsuario(usuarioActual);
+	private void resolver() {
+	    if (incidenciaSeleccionada == null) {
+	        mostrarError("Selecciona una incidencia primero");
+	        return;
+	    }
+	    if (incidenciaSeleccionada.isResuelta()) {
+	        mostrarError("Esta incidencia ya esta resuelta");
+	        return;
+	    }
+	    if (taAcciones.getText().isBlank()) {
+	        mostrarError("Debes describir las acciones realizadas");
+	        return;
+	    }
+	    try {
+	        String usuarioActual = sesionService.getUsuarioActual().getNombre();
 
-			incidenciaService.resolverIncidencia(incidenciaSeleccionada.getId(), taAcciones.getText(), persona.getId());
+	       
+	        Long idPersonaResuelve = null;
+	        Persona persona = personaService.buscarPersonaPorUsuario(usuarioActual);
+	        if (persona != null) {
+	            idPersonaResuelve = persona.getId();
+	        } else {
+	           
+	            idPersonaResuelve = 0L;
+	        }
 
-			mostrarInfo("Incidencia resuelta correctamente");
-			taAcciones.clear();
-			incidenciaSeleccionada = null;
-			taDetalle.clear();
-			mostrarTodas(event);
+	        incidenciaService.resolverIncidencia(
+	                incidenciaSeleccionada.getId(),
+	                taAcciones.getText(),
+	                idPersonaResuelve);
 
-		} catch (ValidacionExcepcion e) {
-			mostrarError(e.getMessage());
-		}
+	        mostrarInfo("Incidencia resuelta correctamente");
+	        taAcciones.clear();
+	        incidenciaSeleccionada = null;
+	        taDetalle.clear();
+	        mostrarTodas(null);
+
+	    } catch (ValidacionExcepcion e) {
+	        mostrarError(e.getMessage());
+	    }
 	}
 
 	private void cargarLista() {
 		ObservableList<String> items = FXCollections.observableArrayList();
 		for (Incidencia i : incidencias) {
-			items.add("[" + (i.isResuelta() ? "Si" : "No") + "] " + i.getTipo()+ " | " + i.getFechaHora().toLocalDate() + " | "
+			items.add("[" + (i.isResuelta() ? "Resuelta" : "No Resuelta") + "] " + i.getTipo()+ " | " + i.getFechaHora().toLocalDate() + " | "
 							+ i.getDescripcion().substring(0,Math.min(40, i.getDescripcion().length())));
 		}
 		lvIncidencias.setItems(items);
@@ -232,9 +246,11 @@ public class GestionIncidenciasController implements Initializable {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("ID: ").append(i.getId()).append("\n");
-		sb.append("Fecha: ").append(i.getFechaHora()).append("\n");
+		 String fecha = i.getFechaHora().format(
+		            java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+		    sb.append("Fecha: ").append(fecha).append("\n");
 		sb.append("Tipo: ").append(i.getTipo()).append("\n");
-		sb.append("Estado: ").append(i.isResuelta() ? "Resuelta Si" : "Pendiente No").append("\n");
+		sb.append("Estado: ").append(i.isResuelta() ? "Resuelta" : "Pendiente").append("\n");
 		sb.append("Persona reporta ID: ").append(i.getIdPersonaReporta()).append("\n");
 		if (i.getIdEspectaculo() != null)
 			sb.append("Espectáculo ID: ").append(i.getIdEspectaculo()).append("\n");

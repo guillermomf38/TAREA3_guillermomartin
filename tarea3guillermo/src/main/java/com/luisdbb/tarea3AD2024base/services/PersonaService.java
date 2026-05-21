@@ -64,7 +64,13 @@ public class PersonaService {
 		Artista artista = new Artista(email, nombre, nacionalidad, credenciales,apodo, especialidades);
 		artistaRepository.save(artista);
 		
-		logdb4oService.registrarOperacion(credNombre.toLowerCase(), TipoOperacion.NUEVO, "Se ha insertado un nuevo Artista de id " + artista.getId());
+		logdb4oService.registrarOperacion(
+	            sesionService.getUsuarioActual().getNombre(),
+	            TipoOperacion.NUEVO,
+	            "Se ha insertado un nuevo Artista de id " + artista.getId()
+	            + " con nombre " + artista.getNombre());
+
+	
 	}
 
 	public void registrarCoordinacion(String nombre, String email,String nacionalidad, String credNombre, String credPassword, boolean senior, LocalDate fechasenior) 
@@ -82,7 +88,11 @@ public class PersonaService {
 		Coordinacion coordinacion = new Coordinacion(email, nombre,nacionalidad, credenciales, senior,senior ? fechasenior : null);
 		coordinacionRepository.save(coordinacion);
 		
-		logdb4oService.registrarOperacion(credNombre.toLowerCase(), TipoOperacion.NUEVO, "Se ha insertado un nuevo Coordinador de id " + coordinacion.getId());
+		logdb4oService.registrarOperacion(
+		        sesionService.getUsuarioActual().getNombre(),
+		        TipoOperacion.NUEVO,
+		        "Se ha insertado un nuevo Coordinador de id " + coordinacion.getId()
+		        + " con nombre " + coordinacion.getNombre());
 	}
 
 	public void modificarDatosPersonales(Long id, String nombre, String email,String nacionalidad) 

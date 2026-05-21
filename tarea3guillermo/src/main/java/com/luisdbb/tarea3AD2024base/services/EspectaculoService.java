@@ -9,6 +9,7 @@ package com.luisdbb.tarea3AD2024base.services;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,12 +99,41 @@ public class EspectaculoService {
 		
 		return guardado;
 	}
+	public void borrarNumero(Long id) {
+	    Numero numero = numeroRepository.findById(id)
+	            .orElseThrow(() -> new EntidadNoEncontradaExcepcion(
+	                    "Numero no encontrado"));
+
+	    
+	    Espectaculo espectaculo = numero.getEspectaculo();
+	    espectaculo.getNumeros().remove(numero);
+	    espectaculoRepository.save(espectaculo);
+
+	    logdb4oService.registrarOperacion(
+	            sesionService.getUsuarioActual().getNombre(),
+	            TipoOperacion.BORRADO,
+	            "Se ha borrado el Numero de id " + id
+	            + " del Espectaculo de id " + espectaculo.getId());
+	}
 
 	public Numero modificarNumero(Long id, String ordenTexto, String nombre,String duracionTexto) {
 		Numero numero = numeroRepository.findById(id).orElseThrow(() -> new EntidadNoEncontradaExcepcion("Numero no encontrado"));
 		int orden = validarOrden(ordenTexto);
 		double duracion = validarDuracion(duracionTexto);
+		
 		validarNombreNumero(nombre);
+		List<Numero> numerosDelEspectaculo = numeroRepository
+	            .findByEspectaculoIdOrderByOrdenAsc(
+	                    numero.getEspectaculo().getId());
+
+	    for (Numero n : numerosDelEspectaculo) {
+	       
+	        if (n.getOrden() == orden && !n.getId().equals(id)) {
+	            throw new ValidacionExcepcion(
+	                    "Ya existe un numero con orden " + orden
+	                    + " en este espectaculo");
+	        }
+	    }
 		numero.setOrden(orden);
 		numero.setNombre(nombre);
 		numero.setDuracion(duracion);
