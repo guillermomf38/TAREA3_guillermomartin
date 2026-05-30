@@ -1,9 +1,10 @@
 package com.luisdbb.tarea3AD2024base;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
@@ -12,6 +13,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 @SpringBootApplication
+@EntityScan("com.luisdbb.tarea3AD2024base.modelo")
 public class Tarea3Ad2024baseApplication extends Application {
 
 	protected ConfigurableApplicationContext springContext;

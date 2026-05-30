@@ -22,7 +22,7 @@ import com.luisdbb.tarea3AD2024base.excepciones.ValidacionExcepcion;
 import com.luisdbb.tarea3AD2024base.modelo.Espectaculo;
 import com.luisdbb.tarea3AD2024base.modelo.Numero;
 import com.luisdbb.tarea3AD2024base.modelo.Persona;
-import com.luisdbb.tarea3AD2024base.modelo.TipoIncidencia;
+import com.luisdbb.tarea3AD2024base.objectdb.TipoIncidencia;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
 import com.luisdbb.tarea3AD2024base.services.IncidenciaService;
 import com.luisdbb.tarea3AD2024base.services.PersonaService;
@@ -98,29 +98,29 @@ public class RegistrarIncidenciaController  implements Initializable{
 	        
 	        cbEspectaculo.setItems(itemsEsp);
 	        cbEspectaculo.getSelectionModel().selectFirst();
+	        cargarTodosLosNumeros();
 	        
-	        cbEspectaculo.getSelectionModel().selectedIndexProperty().addListener((obs, o, n) -> {
-	                    int idx = n.intValue();
-	                    cbNumero.getItems().clear();
-	                    ObservableList<String> itemsNum = FXCollections.observableArrayList();
-	                    itemsNum.add("-- Ninguno --");
-	                    if (idx > 0) 
-	                    {
-	                        Espectaculo e = espectaculos.get(idx - 1);
-	                        numeros = espectaculoService.listarNumerosDeEspectaculo(e.getId());
-	                        for (Numero num : numeros) 
-	                        {
-	                            itemsNum.add(num.getId() + " - " + num.getNombre());
-	                        }
-	                    }
-	                    cbNumero.setItems(itemsNum);
-	                    cbNumero.getSelectionModel().selectFirst();
-	                });
-
-	        cbNumero.setItems(FXCollections.observableArrayList("-- Ninguno --"));
-	        cbNumero.getSelectionModel().selectFirst();
-	    }
-	
+	        cbEspectaculo.getSelectionModel().selectedIndexProperty()
+            .addListener((obs, o, n) -> {
+                int idx = n.intValue();
+                if (idx <= 0) {
+                 
+                    cargarTodosLosNumeros();
+                } else {
+                   
+                    Espectaculo e = espectaculos.get(idx - 1);
+                    numeros = espectaculoService.listarNumerosDeEspectaculo(e.getId());
+                    ObservableList<String> itemsNum =
+                            FXCollections.observableArrayList();
+                    itemsNum.add("-- Ninguno --");
+                    for (Numero num : numeros) {
+                        itemsNum.add(num.getId() + " - " + num.getNombre());
+                    }
+                    cbNumero.setItems(itemsNum);
+                    cbNumero.getSelectionModel().selectFirst();
+                }
+            });
+	}
 	@FXML
 	private void registrar() {
 	    try {
@@ -159,6 +159,8 @@ public class RegistrarIncidenciaController  implements Initializable{
 
 	        mostrarInfo("Incidencia registrada correctamente");
 	        taDescripcion.clear();
+	        cbEspectaculo.getSelectionModel().selectFirst();
+	        cbNumero.getSelectionModel().selectFirst();
 
 	    } catch (ValidacionExcepcion e) {
 	        mostrarError(e.getMessage());
@@ -174,6 +176,18 @@ public class RegistrarIncidenciaController  implements Initializable{
 			} else {
 				stageManager.switchScene(FxmlView.MENU_ARTISTA);
 			}
+		}
+		
+		private void cargarTodosLosNumeros() {
+		    numeros = espectaculoService.listarTodosLosNumeros();
+		    ObservableList<String> itemsNum = FXCollections.observableArrayList();
+		    itemsNum.add("-- Ninguno --");
+		    for (Numero num : numeros) {
+		        itemsNum.add(num.getId() + " - " + num.getNombre()
+		                + " (Esp: " + num.getEspectaculo().getNombre() + ")");
+		    }
+		    cbNumero.setItems(itemsNum);
+		    cbNumero.getSelectionModel().selectFirst();
 		}
 
 		private void mostrarError(String msg) {

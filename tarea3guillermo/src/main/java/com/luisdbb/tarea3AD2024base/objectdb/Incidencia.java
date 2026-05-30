@@ -7,7 +7,7 @@
 
 
 
-package com.luisdbb.tarea3AD2024base.modelo;
+package com.luisdbb.tarea3AD2024base.objectdb;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,6 +21,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 @Entity
 public class Incidencia implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

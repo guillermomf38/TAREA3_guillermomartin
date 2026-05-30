@@ -20,9 +20,10 @@ import org.springframework.stereotype.Controller;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.excepciones.ValidacionExcepcion;
 import com.luisdbb.tarea3AD2024base.modelo.Espectaculo;
-import com.luisdbb.tarea3AD2024base.modelo.Incidencia;
 import com.luisdbb.tarea3AD2024base.modelo.Persona;
-import com.luisdbb.tarea3AD2024base.modelo.TipoIncidencia;
+import com.luisdbb.tarea3AD2024base.objectdb.Incidencia;
+import com.luisdbb.tarea3AD2024base.objectdb.ResolucionIncidencia;
+import com.luisdbb.tarea3AD2024base.objectdb.TipoIncidencia;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
 import com.luisdbb.tarea3AD2024base.services.IncidenciaService;
 import com.luisdbb.tarea3AD2024base.services.PersonaService;
@@ -257,6 +258,22 @@ public class GestionIncidenciasController implements Initializable {
 		if (i.getIdNumero() != null)
 			sb.append("Número ID: ").append(i.getIdNumero()).append("\n");
 		sb.append("Descripción: ").append(i.getDescripcion());
+		
+		if (i.isResuelta()) {
+	        ResolucionIncidencia resolucion = incidenciaService.buscarResolucion(i.getId());
+	        if (resolucion != null) {
+	            sb.append("\n -- Resolución --  \n");
+	            String fechaRes = resolucion.getFechahoraResolucion().format(
+	                    java.time.format.DateTimeFormatter
+	                            .ofPattern("dd/MM/yyyy HH:mm:ss"));
+	            sb.append("Fecha resolución: ").append(fechaRes).append("\n");
+	            sb.append("Resuelta por ID: ")
+	                    .append(resolucion.getIdPersonaResuelve()).append("\n");
+	            sb.append("Acciones: ")
+	                    .append(resolucion.getAccionesRealizadas()).append("\n");
+	        }
+	    }
+		
 		taDetalle.setText(sb.toString());
 	}
 

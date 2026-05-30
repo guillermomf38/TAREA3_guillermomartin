@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.luisdbb.tarea3AD2024base.excepciones.ValidacionExcepcion;
-import com.luisdbb.tarea3AD2024base.modelo.Incidencia;
-import com.luisdbb.tarea3AD2024base.modelo.ResolucionIncidencia;
-import com.luisdbb.tarea3AD2024base.modelo.TipoIncidencia;
+import com.luisdbb.tarea3AD2024base.objectdb.Incidencia;
+import com.luisdbb.tarea3AD2024base.objectdb.ResolucionIncidencia;
+import com.luisdbb.tarea3AD2024base.objectdb.TipoIncidencia;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
@@ -172,5 +172,20 @@ public class IncidenciaService {
 		} finally {
 			em.close();
 		}
+	}
+	
+	public ResolucionIncidencia buscarResolucion(Long idIncidencia) {
+	    EntityManager em = emf.createEntityManager();
+	    try {
+	        List<ResolucionIncidencia> resultados = em.createQuery(
+	                "SELECT r FROM ResolucionIncidencia r "
+	                + "WHERE r.idIncidencia = :idIncidencia",
+	                ResolucionIncidencia.class)
+	                .setParameter("idIncidencia", idIncidencia)
+	                .getResultList();
+	        return resultados.isEmpty() ? null : resultados.get(0);
+	    } finally {
+	        em.close();
+	    }
 	}
 }

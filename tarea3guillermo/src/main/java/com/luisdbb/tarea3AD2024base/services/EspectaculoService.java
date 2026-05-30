@@ -9,7 +9,7 @@ package com.luisdbb.tarea3AD2024base.services;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,6 +157,10 @@ public class EspectaculoService {
 
 	public List<Numero> listarNumerosDeEspectaculo(Long idEspectaculo) {
 		return numeroRepository.findByEspectaculoIdOrderByOrdenAsc(idEspectaculo);
+	}
+	
+	public List<Numero> listarTodosLosNumeros() {
+	    return numeroRepository.findAll();
 	}
 
 	public List<Artista> listarArtistas() {
