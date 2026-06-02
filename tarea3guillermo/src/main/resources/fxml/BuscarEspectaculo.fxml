@@ -75,6 +75,11 @@
 
 		<Label style="-fx-font-weight: bold;" text="Numeros y artistas:" />
          <TextArea fx:id="taNumeros" prefHeight="200.0" prefWidth="200.0" />
+         <Button fx:id="btnExportar" disable="true" mnemonicParsing="false" onAction="#exportarInforme" style="-fx-background-color: #5B9BD5; -fx-text-fill: white;" text="Exportar informe en XML">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Button>
 
         </VBox>
     </center>

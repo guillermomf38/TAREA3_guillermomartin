@@ -33,6 +33,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -67,18 +68,28 @@ public class BuscarEspectaculoController implements Initializable {
 	private TextArea taNumeros;
 	@FXML
 	private Button btnAtras;
+	
+	@FXML
+	private Button btnExportar;
+	
+	
+	
 
 	private List<Espectaculo> espectaculos;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cargarEspectaculos();
+		
+		btnExportar.setDisable(true);
 
 		lvEspectaculos.getSelectionModel().selectedIndexProperty().addListener((obs, o, n) -> {
 					int idx = n.intValue();
 					if (idx >= 0 && idx < espectaculos.size()) 
 					{
 						mostrarDetalle(espectaculos.get(idx));
+						btnExportar.setDisable(false);
+						
 					}
 				});
 	}
@@ -143,6 +154,14 @@ public class BuscarEspectaculoController implements Initializable {
 
 		taNumeros.setText(sb.isEmpty() ? "Sin numeros registrados" : sb.toString());
 	}
+	
+	@FXML
+	private void exportarInforme(ActionEvent event) {
+		
+		
+		mostrarInfo("Exportado correctamente el espectáculo a un fichero XML");
+		
+	}
 
 	@FXML
 	private void atras(ActionEvent event) {
@@ -159,5 +178,13 @@ public class BuscarEspectaculoController implements Initializable {
 		{
 			stageManager.switchScene(FxmlView.LOGIN);
 		}
+	}
+	
+	
+	private void mostrarInfo(String msg) {
+		Alert a = new Alert(Alert.AlertType.INFORMATION);
+		a.setHeaderText(null);
+		a.setContentText(msg);
+		a.showAndWait();
 	}
 }
