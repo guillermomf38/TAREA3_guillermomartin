@@ -30,6 +30,9 @@
         <name>ObjectDB Repository</name>
         <url>https://m2.objectdb.com</url>
     </repository>
+    
+
+
 </repositories>
 
 	<dependencies>
@@ -80,7 +83,21 @@
         	<artifactId>objectdb-jk</artifactId>
         	<version>2.9.5</version>
     </dependency>
-    
+
+
+
+<dependency>
+    <groupId>net.sf.xmldb-org</groupId>
+    <artifactId>xmldb-api</artifactId>
+    <version>1.7.0</version>
+</dependency>
+
+<dependency>
+    <groupId>org.exist-db</groupId>
+    <artifactId>exist-core</artifactId>
+    <version>5.0.0</version>
+    <scope>runtime</scope>
+</dependency>
 	</dependencies>
 
 	<build>

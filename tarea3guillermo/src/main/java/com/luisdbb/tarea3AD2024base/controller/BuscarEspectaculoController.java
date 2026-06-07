@@ -25,6 +25,8 @@ import com.luisdbb.tarea3AD2024base.modelo.Coordinacion;
 import com.luisdbb.tarea3AD2024base.modelo.Espectaculo;
 import com.luisdbb.tarea3AD2024base.modelo.Numero;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
+import com.luisdbb.tarea3AD2024base.services.ExistDBService;
+import com.luisdbb.tarea3AD2024base.services.InformeXmlService;
 import com.luisdbb.tarea3AD2024base.services.SesionService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
@@ -71,6 +73,12 @@ public class BuscarEspectaculoController implements Initializable {
 	
 	@FXML
 	private Button btnExportar;
+	
+	@Autowired
+	private InformeXmlService informeXmlService;
+
+	@Autowired
+	private ExistDBService existDBService;
 	
 	
 	
@@ -159,7 +167,36 @@ public class BuscarEspectaculoController implements Initializable {
 	private void exportarInforme(ActionEvent event) {
 		
 		
-		mostrarInfo("Exportado correctamente el espectáculo a un fichero XML");
+		 Espectaculo e = espectaculos.get(
+		            lvEspectaculos.getSelectionModel().getSelectedIndex());
+
+		    try {
+		        
+		        List<Numero> numeros = espectaculoService
+		                .listarNumerosDeEspectaculo(e.getId());
+
+		     
+		        String nombreFichero = "informe_espectaculo"
+		                + e.getId() + ".xml";
+
+		      
+		        String contenidoXml = informeXmlService.generarXml(e, numeros);
+
+		       
+		        informeXmlService.guardarEnFichero(nombreFichero, contenidoXml);
+
+		    
+		        existDBService.guardarInforme(nombreFichero, contenidoXml);
+
+		        mostrarInfo("Informe exportado correctamente.\n"
+		                + "Guardado en: ficheros/" + nombreFichero + "\n"
+		                + "Persistido en eXistDB: /db/informes/"
+		                + nombreFichero);
+
+		    } catch (Exception ex) {
+		        mostrarError("Error al exportar el informe: " + ex.getMessage());
+		        ex.printStackTrace();
+		    }
 		
 	}
 
@@ -187,4 +224,12 @@ public class BuscarEspectaculoController implements Initializable {
 		a.setContentText(msg);
 		a.showAndWait();
 	}
+	
+	private void mostrarError(String msg) {
+		Alert a = new Alert(Alert.AlertType.ERROR);
+		a.setHeaderText(null);
+		a.setContentText(msg);
+		a.showAndWait();
+	}
+	
 }
