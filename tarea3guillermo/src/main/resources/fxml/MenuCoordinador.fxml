@@ -85,6 +85,20 @@
                   </Button>
                </children>
             </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="335.0" prefHeight="100.0" prefWidth="200.0" spacing="170.0">
+               <children>
+                  <Label text="Actualizar Dossier">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnActualizarDossier" mnemonicParsing="false" onAction="#irActualizarDossier" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" text="Ir">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
 				<Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" style="-fx-background-color: white;" text="Cerrar Sesión">
 					<VBox.margin>
 						<Insets bottom="30.0" left="700.0" top="40.0" />

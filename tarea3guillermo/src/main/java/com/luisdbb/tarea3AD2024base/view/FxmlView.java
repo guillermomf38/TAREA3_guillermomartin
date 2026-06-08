@@ -127,22 +127,48 @@ public enum FxmlView {
 	},
 	
 	HISTORIAL_OPERACIONES {
-	    @Override public String getTitle() {
-	        return getStringFromResourceBundle("historialOperaciones.title"); }
-	    @Override public String getFxmlFile() {
-	        return "/fxml/HistorialOperaciones.fxml"; }
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("historialOperaciones.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/HistorialOperaciones.fxml";
+		}
 	},
 	REGISTRAR_INCIDENCIA {
-	    @Override public String getTitle() {
-	        return getStringFromResourceBundle("registrarIncidencia.title"); }
-	    @Override public String getFxmlFile() {
-	        return "/fxml/RegistrarIncidencia.fxml"; }
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("registrarIncidencia.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/RegistrarIncidencia.fxml";
+		}
 	},
 	GESTION_INCIDENCIAS {
-	    @Override public String getTitle() {
-	        return getStringFromResourceBundle("gestionIncidencias.title"); }
-	    @Override public String getFxmlFile() {
-	        return "/fxml/GestionIncidencias.fxml"; }
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("gestionIncidencias.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/GestionIncidencias.fxml";
+		}
+	},
+	ACTUALIZAR_DOSSIER {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("actualizarDossier.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/ActualizarDossier.fxml";
+		}
 	};
 
 	public abstract String getTitle();

@@ -44,6 +44,9 @@ public class MenuAdminController implements Initializable {
 	private Button btnIrGestion;
 	@FXML
 	private Button btnCerrarSesion;
+	
+	@FXML
+	private Button btnActualizarDossier;
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
@@ -81,6 +84,11 @@ public class MenuAdminController implements Initializable {
 	@FXML
 	private void gestionIncidencias(ActionEvent event) {
 	    stageManager.switchScene(FxmlView.GESTION_INCIDENCIAS);
+	}
+	
+	@FXML
+	private void irActualizarDossier(ActionEvent event) {
+	    stageManager.switchScene(FxmlView.ACTUALIZAR_DOSSIER);
 	}
 
 	@FXML

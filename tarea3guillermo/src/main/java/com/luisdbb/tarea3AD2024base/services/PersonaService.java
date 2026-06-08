@@ -48,6 +48,9 @@ public class PersonaService {
 	
 	@Autowired
 	private SesionService sesionService;
+	
+	@Autowired
+	private DossierService dossierService;
 
 	public void registrarArtista(String nombre, String email,String nacionalidad, String credNombre, String credPassword,String apodo, List<Especialidad> especialidades) 
 	{
@@ -63,6 +66,8 @@ public class PersonaService {
 
 		Artista artista = new Artista(email, nombre, nacionalidad, credenciales,apodo, especialidades);
 		artistaRepository.save(artista);
+		
+		dossierService.crearDossier(artista);
 		
 		logdb4oService.registrarOperacion(
 	            sesionService.getUsuarioActual().getNombre(),
@@ -126,7 +131,7 @@ public class PersonaService {
 		artista.setApodo(apodo);
 		artista.setEspecialidades(especialidades);
 		artistaRepository.save(artista);
-		
+		dossierService.actualizarDatosBasicos(artista);
 		logdb4oService.registrarOperacion(sesionService.getUsuarioActual().getNombre(), TipoOperacion.ACTUALIZACION, "Se ha actualizado el Artista de id " + id);
 	}
 

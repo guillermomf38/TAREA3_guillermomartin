@@ -124,6 +124,20 @@
                   </Button>
                </children>
             </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="403.0" prefHeight="76.0" prefWidth="200.0" spacing="70.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="230.0" text="Actualizar Dossier">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnActualizarDossier" mnemonicParsing="false" onAction="#irActualizarDossier" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" text="Ir">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>

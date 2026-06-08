@@ -47,6 +47,11 @@ public class EspectaculoService {
 	
 	@Autowired
 	private SesionService sesionService;
+	
+	@Autowired
+	private DossierService dossierService;
+
+
 
 	public List<Espectaculo> listarEspectaculos() 
 	{
@@ -146,13 +151,22 @@ public class EspectaculoService {
 	}
 
 	public Numero asignarArtistas(Long idNumero, List<Artista> artistas) {
-		if (artistas == null || artistas.isEmpty()) 
-		{
-			throw new ValidacionExcepcion("Debe asignar al menos un artista al numero");
-		}
-		Numero numero = numeroRepository.findById(idNumero).orElseThrow(() -> new EntidadNoEncontradaExcepcion("Numero no encontrado"));
-		numero.setArtistas(artistas);
-		return numeroRepository.save(numero);
+	    if (artistas == null || artistas.isEmpty()) {
+	        throw new ValidacionExcepcion(
+	                "Debe asignar al menos un artista al numero");
+	    }
+	    Numero numero = numeroRepository.findById(idNumero)
+	            .orElseThrow(() -> new EntidadNoEncontradaExcepcion(
+	                    "Numero no encontrado"));
+
+	    numero.setArtistas(artistas);
+	  
+	    Numero guardado = numeroRepository.save(numero);
+	   
+	    for (Artista artista : artistas) {
+	        dossierService.actualizarTrayectoria(artista, guardado);
+	    }
+	    return guardado;
 	}
 
 	public List<Numero> listarNumerosDeEspectaculo(Long idEspectaculo) {
